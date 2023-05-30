@@ -34,12 +34,11 @@ class Recursion:
         self.current_class = current_class
         self.previous_class = previous_class
     def recursive_function(self, current_sentence, next_class):
-        print(current_sentence)
-        quit()
         #if no terminals:
             #print(current_sentence)
         #else:
-            #current_class.generate_sentence_fragment(current_sentence, next_class)
+            #next_class.generate_sentence_fragment(current_sentence, next_class)
+        next_class.generate_sentence_fragment(current_sentence, next_class)
 
 
 '''
@@ -61,20 +60,34 @@ class Option:
     def generate_sentence_fragment():
         pass
 '''
+
 class Rule:
     def __init__(self):
         pass
 
-    def generate_random_number(self):
-        pass
+    def generate_random_number(self, options_of_start_variable):
+        list_of_weights = []
+        for option in options_of_start_variable:
+            for i in range(int(option[0])):
+                list_of_weights.append(option[0])
+        random_num_of_list_of_weights = random.choice(list_of_weights)
+        while True:
+            random_num_in_ops_of_start_var = random.randint(0, len(options_of_start_variable)-1)
+            if options_of_start_variable[random_num_in_ops_of_start_var][0] == random_num_of_list_of_weights:
+                final_option_chosen = options_of_start_variable[random_num_in_ops_of_start_var]
+                break
+        return final_option_chosen
+
+
     #go through the current sentence fragment, which at this point
     #will a list with lists inside of it, each sublist containing,
     #an option. so go through that list and add up all the first
     ##later.......
 
-    def generate_sentence_fragment(self, options_of_start_variable):
-        pass
-        #generate_random_number(options_of_start_variable)
+    def generate_sentence_fragment(self, options_of_start_variable, current_class):
+        option_chosen = self.generate_random_number(options_of_start_variable)
+
+
 
 
 
@@ -94,6 +107,7 @@ class Grammar:
                         options_of_search_variable.append(next_line.strip("\n").split(" "))
         except StopIteration:
             pass
+        del(options_of_search_variable[-1])
         rule = Rule()
         recurse = Recursion()
         recurse.recursive_function(options_of_search_variable, rule)
