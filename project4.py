@@ -8,16 +8,12 @@ from pathlib import Path
 
 def main() -> None:
     grammar_file = Path(input())
-    #num_of_sentences = int(input())
+    num_of_sentences = int(input())
     start_variable = input()
     file_1 = open(grammar_file, "r")
     grammar = Grammar()
-    grammar.generate_sentence_fragment(start_variable, file_1)
-    # del(options_of_start_variable[-1])
-    # print(options_of_start_variable)
-    # print(options_of_start_variable[0])
-    # print(options_of_start_variable[1])
-    # quit()
+    grammar.grammar_object = grammar
+    grammar.store_rules(file_1)
 
     # quit_file = # function where making the object starts
     # if quit_file is True:
@@ -67,15 +63,16 @@ class Rule:
 
     def generate_random_number(self, options_of_start_variable):
         list_of_weights = []
-        for option in options_of_start_variable:
+        for option in options_of_start_variable[1:]:
             for i in range(int(option[0])):
                 list_of_weights.append(option[0])
         random_num_of_list_of_weights = random.choice(list_of_weights)
-        while True:
+        x = True
+        while x is True:
             random_num_in_ops_of_start_var = random.randint(0, len(options_of_start_variable)-1)
             if options_of_start_variable[random_num_in_ops_of_start_var][0] == random_num_of_list_of_weights:
                 final_option_chosen = options_of_start_variable[random_num_in_ops_of_start_var]
-                break
+                x = False
         return final_option_chosen
 
 
@@ -94,6 +91,25 @@ class Rule:
 class Grammar:
     def __init__(self, original_grammar=None):
         self.original_grammar = original_grammar
+        self.file = []
+        self.grammar_object = None
+
+    def store_rules(self, file_1):
+        #'''
+        try:
+            file_iterable = iter(file_1)
+            while True:
+                next_line = next(file_iterable)
+                if next_line == "{" + "\n":
+                    second_list = []
+                    while next_line.strip(" ") != "}\n":
+                        next_line = next(file_iterable)
+                        second_list.append(next_line.strip("\n").split(" "))
+                    self.file.append(second_list)
+                else:
+                    pass
+        except StopIteration:
+            self.file.append(second_list)
 
     def generate_sentence_fragment(self, search_for_variable, file_1):
         options_of_search_variable = []
