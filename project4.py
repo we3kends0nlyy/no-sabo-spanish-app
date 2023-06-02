@@ -25,37 +25,20 @@ def main() -> None:
 # is called, it only needs the start variable passed to it.
 
 
-class Recursion:
-    def __init(self, current_class=None, previous_class=None):
-        self.current_class = current_class
-        self.previous_class = previous_class
-    def recursive_function(self, current_sentence, next_class):
-        #if no terminals:
-            #print(current_sentence)
-        #else:
-            #next_class.generate_sentence_fragment(current_sentence, next_class)
-        next_class.generate_sentence_fragment(current_sentence, next_class)
+def call_duck_typed_method(current_sent_state, current_class, start_variable, grammar):
+    yield from current_class.generate_sentence_fragment(current_sent_state, current_class, start_variable, grammar)
 
-
-'''
 class TerminalSymbol:
     def __init__(self):
         pass
-    # def generate_sentence_fragment():
-
 
 class VariableSymbol:
     def __init__(self):
-        pass
-    def generate_sentence_fragment():
         pass
 
 class Option:
     def __init__(self):
         pass
-    def generate_sentence_fragment():
-        pass
-'''
 
 class Rule:
     def __init__(self):
@@ -95,7 +78,6 @@ class Grammar:
         self.grammar_object = None
 
     def store_rules(self, file_1):
-        #'''
         try:
             file_iterable = iter(file_1)
             while True:
@@ -111,22 +93,12 @@ class Grammar:
         except StopIteration:
             self.file.append(second_list)
 
-    def generate_sentence_fragment(self, search_for_variable, file_1):
+    def generate_sentence_fragment(self, search_for_variable, next_class, starter_variable, gram_object):
         options_of_search_variable = []
-        try:
-            file_iterable = iter(file_1)
-            while True:
-                next_line = next(file_iterable)
-                if next_line == search_for_variable + "\n":
-                    while next_line.strip(" ") != "}\n":
-                        next_line = next(file_iterable)
-                        options_of_search_variable.append(next_line.strip("\n").split(" "))
-        except StopIteration:
-            pass
-        del(options_of_search_variable[-1])
+        for next_line in self.file:
+            if next_line[0][0] == starter_variable:
+                options_of_search_variable = next_line
         rule = Rule()
-        recurse = Recursion()
-        recurse.recursive_function(options_of_search_variable, rule)
 
 
 if __name__ == '__main__':
