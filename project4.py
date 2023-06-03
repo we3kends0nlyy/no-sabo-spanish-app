@@ -59,13 +59,10 @@ class Rule:
         return final_option_chosen
 
 
-    #go through the current sentence fragment, which at this point
-    #will a list with lists inside of it, each sublist containing,
-    #an option. so go through that list and add up all the first
-    ##later.......
-
-    def generate_sentence_fragment(self, options_of_start_variable, current_class):
+    def generate_sentence_fragment(self, options_of_start_variable, current_class, starter_variable, gram_object):
         option_chosen = self.generate_random_number(options_of_start_variable)
+        option = Option()
+        yield from call_duck_typed_method(option_chosen[1:], option, starter_variable, gram_object)
 
 
 
@@ -99,6 +96,7 @@ class Grammar:
             if next_line[0][0] == starter_variable:
                 options_of_search_variable = next_line
         rule = Rule()
+        yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, starter_variable, gram_object)
 
 
 if __name__ == '__main__':
