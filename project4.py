@@ -6,7 +6,10 @@ import random
 from pathlib import Path
 
 
-def main() -> None:
+def main(testing=False) -> None:
+    ask_for_inputs(testing)
+
+def ask_for_inputs(testing = False):
     grammar_file = Path(input())
     num_of_sentences = int(input())
     start_variable = input()
@@ -14,6 +17,8 @@ def main() -> None:
     grammar = Grammar()
     grammar.grammar_object = grammar
     grammar.store_rules(file_1)
+    if testing is True:
+        file_1.close()
 
     # quit_file = # function where making the object starts
     # if quit_file is True:
@@ -90,14 +95,16 @@ class Grammar:
         except StopIteration:
             self.file.append(second_list)
 
-    def generate_sentence_fragment(self, search_for_variable, next_class, starter_variable, gram_object):
+    def generate_sentence_fragment(self, next_class, starter_variable, gram_object, testing=False):
         options_of_search_variable = []
         for next_line in self.file:
             if next_line[0][0] == starter_variable:
                 options_of_search_variable = next_line
         rule = Rule()
-        yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, starter_variable, gram_object)
-
+        if testing is False:
+            yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, starter_variable, gram_object)
+        else:
+            pass
 
 if __name__ == '__main__':
     main()
