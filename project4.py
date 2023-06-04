@@ -36,6 +36,8 @@ def call_duck_typed_method(current_sent_state, current_class, start_variable, gr
 class TerminalSymbol:
     def __init__(self):
         pass
+    def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object, index):
+        return [current_sent_frag[0], current_sent_frag[index]]
 
 class VariableSymbol:
     def __init__(self):
