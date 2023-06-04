@@ -1,6 +1,7 @@
 import unittest
 from project4 import ask_for_inputs
 from project4 import main
+from project4 import Option
 from project4 import Rule
 from project4 import Grammar
 import tempfile
@@ -54,15 +55,21 @@ class TestGramGenSenFrag(unittest.TestCase):
 
 class TestRuleGenSenFrag(unittest.TestCase):
     def test_rule_gen_sent_frag(self):
-        #input_file = test_file()
         rule = Rule()
-        #file_1 = open(input_file.name, "r")
         x = rule.generate_sentence_fragment([['HowIsBoo'], ['1', 'Boo', 'is', '[Adjective]', 'today', 'and', '[Verb]']], "HowIsBoo", "grammar", True)
         try:
             next(x)
         except StopIteration:
             pass
-        #file_1.close()
+
+class TestOptionGenSenFrag(unittest.TestCase):
+    def test_option_gen_sent_frag(self):
+        option = Option()
+        y = option.generate_sentence_fragment(['[Adjective]'], "HowIsBoo", "grammar", True)
+        try:
+            next(y)
+        except StopIteration:
+            pass
 
 if __name__ == "__main__":
     unittest.main()
