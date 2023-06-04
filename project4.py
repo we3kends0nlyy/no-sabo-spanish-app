@@ -45,6 +45,15 @@ class Option:
     def __init__(self):
         pass
 
+    def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object):
+        for index in range(len(current_sent_frag)):
+            if current_sent_frag[index].startswith("[") and current_sent_frag[index].endswith("]"):
+                variable = VariableSymbol()
+                yield from variable.generate_sentence_fragment(current_sent_frag, current_class, starter_variable, gram_object, index)
+            else:
+                terminal = TerminalSymbol()
+                yield terminal.generate_sentence_fragment(current_sent_frag, current_class, starter_variable, gram_object, index)
+
 class Rule:
     def __init__(self):
         pass
@@ -68,9 +77,6 @@ class Rule:
         option_chosen = self.generate_random_number(options_of_start_variable)
         option = Option()
         yield from call_duck_typed_method(option_chosen[1:], option, starter_variable, gram_object)
-
-
-
 
 
 class Grammar:
@@ -108,3 +114,4 @@ class Grammar:
 
 if __name__ == '__main__':
     main()
+

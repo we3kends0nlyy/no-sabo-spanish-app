@@ -40,7 +40,7 @@ class TestInputs(unittest.TestCase):
         self.assertEqual(result, None)
 
 class TestGramGenSenFrag(unittest.TestCase):
-    def test_gen_sent_frag(self):
+    def test_gram_gen_sent_frag(self):
         input_file = test_file()
         grammar = Grammar()
         file_1 = open(input_file.name, "r")
@@ -51,6 +51,18 @@ class TestGramGenSenFrag(unittest.TestCase):
         except StopIteration:
             pass
         file_1.close()
+
+class TestRuleGenSenFrag(unittest.TestCase):
+    def test_rule_gen_sent_frag(self):
+        #input_file = test_file()
+        rule = Rule()
+        #file_1 = open(input_file.name, "r")
+        x = rule.generate_sentence_fragment([['HowIsBoo'], ['1', 'Boo', 'is', '[Adjective]', 'today', 'and', '[Verb]']], "HowIsBoo", "grammar", True)
+        try:
+            next(x)
+        except StopIteration:
+            pass
+        #file_1.close()
 
 if __name__ == "__main__":
     unittest.main()
