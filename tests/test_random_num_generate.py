@@ -7,7 +7,8 @@ from project4 import Grammar
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
-
+import contextlib
+from io import StringIO
 def test_file():
     with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False) as input_file:
         input_file.write('{\n')
@@ -20,6 +21,7 @@ def test_file():
         input_file.write('100 perfect\n')
         input_file.write('}\n')
     return input_file
+
 class TestRandomNum(unittest.TestCase):
     def test_random_num_choose(self):
         rule = Rule()
@@ -33,12 +35,15 @@ class TestGrammar(unittest.TestCase):
         grammar.store_rules(file_1)
         file_1.close()
 
-class TestInputs(unittest.TestCase):
-    input_file = test_file()
-    @patch('builtins.input', side_effect=[Path(input_file.name), 1, "HowIsBoo"])
-    def test_ask_for_input(self, _):
-        result = main(True)
-        self.assertEqual(result, None)
+class TestInputRandomNum(unittest.TestCase):
+        input_file = test_file()
+        @patch('builtins.input', side_effect=[Path(input_file.name), 1, "HowIsBoo"])
+        def test_ask_for_input(self, _):
+            result = StringIO()
+            with patch('sys.stdout', new=result):
+                main(True)
+            output_print = result.getvalue().strip()
+            self.assertEqual(output_print, "Boo is perfect today")
 
 class TestGramGenSenFrag(unittest.TestCase):
     def test_gram_gen_sent_frag(self):
@@ -46,7 +51,7 @@ class TestGramGenSenFrag(unittest.TestCase):
         grammar = Grammar()
         file_1 = open(input_file.name, "r")
         grammar.store_rules(file_1)
-        x = grammar.generate_sentence_fragment("empty", "HowIsBoo", grammar, True)
+        x = grammar.generate_sentence_fragment("Adjective", "HowIsBoo", "Adjective", grammar)
         try:
             next(x)
         except StopIteration:
@@ -65,11 +70,18 @@ class TestRuleGenSenFrag(unittest.TestCase):
 class TestOptionGenSenFrag(unittest.TestCase):
     def test_option_gen_sent_frag(self):
         option = Option()
-        y = option.generate_sentence_fragment(['[Adjective]'], "HowIsBoo", "grammar", True)
+        input_file = test_file()
+        grammar = Grammar()
+        file_1 = open(input_file.name, "r")
+        grammar.store_rules(file_1)
+        y = option.generate_sentence_fragment(['[Adjective]', 'today', 'and', '[Verb]'], option, "Adjective", grammar)
         try:
             next(y)
+            next(y)
+            file_1.close()
         except StopIteration:
-            pass
+            file_1.close()
+
 
 if __name__ == "__main__":
     unittest.main()

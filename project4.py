@@ -9,7 +9,7 @@ from pathlib import Path
 def main(testing=False) -> None:
     ask_for_inputs(testing)
 
-def ask_for_inputs(testing = False):
+def ask_for_inputs(testing):
     grammar_file = Path(input())
     num_of_sentences = int(input())
     start_variable = input()
@@ -17,6 +17,19 @@ def ask_for_inputs(testing = False):
     grammar = Grammar()
     grammar.grammar_object = grammar
     grammar.store_rules(file_1)
+    #if testing is True:
+        #file_1.close()
+    #else:
+    for num in range(num_of_sentences):
+        x = call_duck_typed_method(["1", "[]"], grammar, start_variable, grammar)
+        string_list = []
+        string_to_print = ""
+        for i in x:
+            if i[1].startswith("[") is False and i[1].endswith("]") is False:
+                string_list.append(i[1])
+        for symbol in string_list:
+            string_to_print += f" {symbol}"
+        print(string_to_print[1:])
     if testing is True:
         file_1.close()
 
@@ -42,6 +55,9 @@ class TerminalSymbol:
 class VariableSymbol:
     def __init__(self):
         pass
+    def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object, index):
+        searching_for = current_sent_frag[index][1:-1]
+        yield from call_duck_typed_method(starter_variable, gram_object, searching_for, gram_object)
 
 class Option:
     def __init__(self):
@@ -87,7 +103,9 @@ class Grammar:
         self.file = []
         self.grammar_object = None
 
+
     def store_rules(self, file_1):
+        #'''
         try:
             file_iterable = iter(file_1)
             while True:
@@ -103,17 +121,13 @@ class Grammar:
         except StopIteration:
             self.file.append(second_list)
 
-    def generate_sentence_fragment(self, next_class, starter_variable, gram_object, testing=False):
+    def generate_sentence_fragment(self, search_for_variable, next_class, starter_variable, gram_object):
         options_of_search_variable = []
         for next_line in self.file:
             if next_line[0][0] == starter_variable:
                 options_of_search_variable = next_line
         rule = Rule()
-        if testing is False:
-            yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, starter_variable, gram_object)
-        else:
-            pass
+        yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, starter_variable, gram_object)
 
 if __name__ == '__main__':
     main()
-

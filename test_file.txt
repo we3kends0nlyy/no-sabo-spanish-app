@@ -5,7 +5,7 @@ HowIsBoo
 
 {
 Adjective
-6 happy [Adjective] NOW
+6 happy [Adjective] [Verb] NOW
 1 perfect
 }
 
