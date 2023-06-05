@@ -5,7 +5,6 @@
 import random
 from pathlib import Path
 
-
 def main(testing=False) -> None:
     ask_for_inputs(testing)
 
@@ -17,31 +16,18 @@ def ask_for_inputs(testing):
     grammar = Grammar()
     grammar.grammar_object = grammar
     grammar.store_rules(file_1)
-    #if testing is True:
-        #file_1.close()
-    #else:
     for num in range(num_of_sentences):
         x = call_duck_typed_method(["1", "[]"], grammar, start_variable, grammar)
         string_list = []
         string_to_print = ""
         for i in x:
-            if i[1].startswith("[") is False and i[1].endswith("]") is False:
-                string_list.append(i[1])
+            if i.startswith("[") is False and i.endswith("]") is False:
+                string_list.append(i)
         for symbol in string_list:
             string_to_print += f" {symbol}"
         print(string_to_print[1:])
     if testing is True:
         file_1.close()
-
-    # quit_file = # function where making the object starts
-    # if quit_file is True:
-    # file_1.close()
-
-
-# So when the first time goes through, I'll call it with the
-# grammar class for current_class. When the grammar class method
-# is called, it only needs the start variable passed to it.
-
 
 def call_duck_typed_method(current_sent_state, current_class, start_variable, grammar):
     yield from current_class.generate_sentence_fragment(current_sent_state, current_class, start_variable, grammar)
@@ -50,7 +36,7 @@ class TerminalSymbol:
     def __init__(self):
         pass
     def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object, index):
-        return [current_sent_frag[0], current_sent_frag[index]]
+        return current_sent_frag[index]
 
 class VariableSymbol:
     def __init__(self):
@@ -105,7 +91,6 @@ class Grammar:
 
 
     def store_rules(self, file_1):
-        #'''
         try:
             file_iterable = iter(file_1)
             while True:
