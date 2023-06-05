@@ -10,6 +10,8 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 from io import StringIO
+import contextlib
+import io
 
 def test_file():
     with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False) as input_file:
@@ -22,12 +24,34 @@ def test_file():
         input_file.write('Adjective\n')
         input_file.write('100 perfect\n')
         input_file.write('}\n')
+        input_file.write('{\n')
+        input_file.write('Verb\n')
+        input_file.write('100 running\n')
+        input_file.write('}\n')
     return input_file
 
 class TestRandomNum(unittest.TestCase):
     def test_random_num_choose(self):
+        input_file = test_file()
+        grammar = Grammar()
+        file_1 = open(input_file.name, "r")
+        grammar.store_rules(file_1)
         rule = Rule()
-        self.assertEqual(rule.generate_random_number([['HowIsBoo'], ['100', 'Boo', 'is', '[Adjective]', 'today', 'and', '[Verb]']]), ['100', 'Boo', 'is', '[Adjective]', 'today', 'and', '[Verb]'])
+        x = rule.generate_sentence_fragment([['HowIsBoo'], ['1', 'Boo', 'is', '[Adjective]', 'today', 'and', '[Verb]']], "HowIsBoo", "Adjective", grammar)
+        string_list = []
+        string_to_print = ""
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            try:
+                while True:
+                    i = next(x)
+                    if i.startswith("[") is False and i.endswith("]") is False:
+                        string_list.append(i)
+                    for symbol in string_list:
+                        string_to_print += f" {symbol}"
+            except StopIteration:
+                print(string_to_print[1:])
+                file_1.close()
+        self.assertEqual(output.getvalue(), "Boo Boo is Boo is perfect Boo is perfect today Boo is perfect today and Boo is perfect today and running\n")
 
 class TestGrammar(unittest.TestCase):
     def test_grammar_gen_sentence_frag(self):

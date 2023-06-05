@@ -1,0 +1,18 @@
+{
+HowIsBoo
+1 Boo is [Adjective] today and [Verb]
+}
+
+{
+Adjective
+6 happy [Adjective] NOW
+1 perfect
+}
+
+{
+Verb
+2 running
+1 walking
+2 eating
+1 farting
+}

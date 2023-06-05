@@ -102,7 +102,7 @@ class Rule:
 
     def generate_sentence_fragment(self, options_of_start_variable, current_class, starter_variable, gram_object):
         """This method calls the generate number method. After getting the option
-        returned, it yields that option back to the duck typed method method."""
+        returned, it yields that option back to the duck typed method."""
         option_chosen = self.generate_random_number(options_of_start_variable)
         option = Option()
         yield from call_duck_typed_method(option_chosen[1:], option, starter_variable, gram_object)
