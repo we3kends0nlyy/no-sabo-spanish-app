@@ -6,9 +6,13 @@ import random
 from pathlib import Path
 
 def main(testing=False) -> None:
+    """This method called the function that asks for input.
+    """
     ask_for_inputs(testing)
 
 def ask_for_inputs(testing):
+    """This function asks for the three inputs required by the user.
+    """
     grammar_file = Path(input())
     num_of_sentences = int(input())
     start_variable = input()
@@ -16,6 +20,13 @@ def ask_for_inputs(testing):
     grammar = Grammar()
     grammar.grammar_object = grammar
     grammar.store_rules(file_1)
+    calling_loop(num_of_sentences, grammar, start_variable, testing, file_1)
+
+def calling_loop(num_of_sentences, grammar, start_variable, testing, file_1):
+    """This function contains the for loop that calls on the generator object
+    yielded frm the duck typed method. It checks whether the thing yielded back
+    is a terminal and if it is, it's added to the list After the loop is finished
+    the output is printed."""
     for num in range(num_of_sentences):
         x = call_duck_typed_method(["1", "[]"], grammar, start_variable, grammar)
         string_list = []
@@ -30,26 +41,37 @@ def ask_for_inputs(testing):
         file_1.close()
 
 def call_duck_typed_method(current_sent_state, current_class, start_variable, grammar):
+    """This function calls the method that is sent to it based off of the class
+    that is gets. This is where I use duck typing because this function has one
+    line that calls 4-5 different methods in my code."""
     yield from current_class.generate_sentence_fragment(current_sent_state, current_class, start_variable, grammar)
 
 class TerminalSymbol:
-    def __init__(self):
-        pass
+    """Contains the terminal functionality."""
+
     def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object, index):
+        """This function returns a terminal so that it can be added to the list and printed
+        after all terminals have been collected."""
         return current_sent_frag[index]
 
 class VariableSymbol:
-    def __init__(self):
-        pass
+    """Contains the variable functionality."""
+
     def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object, index):
+        """This method yields back to the duck type method
+        so that it can be sent to the grammar class. This
+        happens so that the program can recurse a level deeper
+        and find what to replace the variable with."""
         searching_for = current_sent_frag[index][1:-1]
         yield from call_duck_typed_method(starter_variable, gram_object, searching_for, gram_object)
 
 class Option:
-    def __init__(self):
-        pass
+    """Contains the Option functionality."""
 
     def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object):
+        """This method goes through the current sentence fragment, symbol by symbol,
+        to check whether the symbol is a variable or a terminal. The program is sent
+        to the corresponding class from there."""
         for index in range(len(current_sent_frag)):
             if current_sent_frag[index].startswith("[") and current_sent_frag[index].endswith("]"):
                 variable = VariableSymbol()
@@ -59,10 +81,11 @@ class Option:
                 yield terminal.generate_sentence_fragment(current_sent_frag, current_class, starter_variable, gram_object, index)
 
 class Rule:
-    def __init__(self):
-        pass
-
+    """Contains the Rule functionality."""
     def generate_random_number(self, options_of_start_variable):
+        """This method chooses a random option from the possible options
+        in a rule for a variable. This option is then returned back so that
+        it can be yielded to the option class."""
         list_of_weights = []
         for option in options_of_start_variable[1:]:
             for i in range(int(option[0])):
@@ -78,19 +101,27 @@ class Rule:
 
 
     def generate_sentence_fragment(self, options_of_start_variable, current_class, starter_variable, gram_object):
+        """This method calls the generate number method. After getting the option
+        returned, it yields that option back to the duck typed method method."""
         option_chosen = self.generate_random_number(options_of_start_variable)
         option = Option()
         yield from call_duck_typed_method(option_chosen[1:], option, starter_variable, gram_object)
 
 
 class Grammar:
+    """Contains the Grammar functionality."""
     def __init__(self, original_grammar=None):
+        """Stores the original grammar, file, and the
+        grammar object so that it can be used."""
         self.original_grammar = original_grammar
         self.file = []
         self.grammar_object = None
 
 
     def store_rules(self, file_1):
+        """This method goes through the text file
+        and parses it in a way that is easily organized
+        by the curly brackets, separating each set of rules."""
         try:
             file_iterable = iter(file_1)
             while True:
@@ -106,13 +137,15 @@ class Grammar:
         except StopIteration:
             self.file.append(second_list)
 
-    def generate_sentence_fragment(self, search_for_variable, next_class, starter_variable, gram_object):
+    def generate_sentence_fragment(self, search_for_variable, next_class, matching_variable, gram_object):
+        """This method goes through the saved file until it reaches the line that has the variable
+        that it's trying to match with."""
         options_of_search_variable = []
         for next_line in self.file:
-            if next_line[0][0] == starter_variable:
+            if next_line[0][0] == matching_variable:
                 options_of_search_variable = next_line
         rule = Rule()
-        yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, starter_variable, gram_object)
+        yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, matching_variable, gram_object)
 
 if __name__ == '__main__':
     main()
