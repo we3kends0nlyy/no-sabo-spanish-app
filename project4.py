@@ -32,7 +32,7 @@ def calling_loop(num_of_sentences, grammar, start_variable, testing, file_1):
         string_list = []
         string_to_print = ""
         for i in x:
-            if i.startswith("[") is False and i.endswith("]") is False:
+            if i.startswith("[") is False and i.endswith("]") is False or i.isalnum() is False:
                 string_list.append(i)
         for symbol in string_list:
             string_to_print += f" {symbol}"
@@ -52,6 +52,7 @@ class TerminalSymbol:
     def generate_sentence_fragment(self, current_sent_frag, current_class, starter_variable, gram_object, index):
         """This function returns a terminal so that it can be added to the list and printed
         after all terminals have been collected."""
+
         return current_sent_frag[index]
 
 class VariableSymbol:
@@ -73,7 +74,7 @@ class Option:
         to check whether the symbol is a variable or a terminal. The program is sent
         to the corresponding class from there."""
         for index in range(len(current_sent_frag)):
-            if current_sent_frag[index].startswith("[") and current_sent_frag[index].endswith("]"):
+            if current_sent_frag[index].startswith("[") and current_sent_frag[index].endswith("]") and current_sent_frag[index][1:-1].isalnum():
                 variable = VariableSymbol()
                 yield from variable.generate_sentence_fragment(current_sent_frag, current_class, starter_variable, gram_object, index)
             else:
