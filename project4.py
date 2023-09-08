@@ -8,19 +8,24 @@ from pathlib import Path
 def main(testing=False) -> None:
     """This method called the function that asks for input.
     """
-    ask_for_inputs(testing)
+    return ask_for_inputs(testing)
 
-def ask_for_inputs(testing):
+def random_name_gen(start_var, testing=False):
+    return ask_for_inputs(testing, start_var)
+
+def ask_for_inputs(testing, start_var):
     """This function asks for the three inputs required by the user.
     """
-    grammar_file = Path(input())
-    num_of_sentences = int(input())
-    start_variable = input()
+    grammar_file = "test_file.txt"
+    #num_of_sentences = int(input("Enter the number of sentences you want to output: "))
+    #start_variable = input("Enter the start variable for the output sentences(Some examples are LetStatement, PrintStatement, GosubStatement): ")
+    num_of_sentences = 1
+    start_variable = start_var
     file_1 = open(grammar_file, "r")
     grammar = Grammar()
     grammar.grammar_object = grammar
     grammar.store_rules(file_1)
-    calling_loop(num_of_sentences, grammar, start_variable, testing, file_1)
+    return calling_loop(num_of_sentences, grammar, start_variable, testing, file_1)
 
 def calling_loop(num_of_sentences, grammar, start_variable, testing, file_1):
     """This function contains the for loop that calls on the generator object
@@ -36,7 +41,8 @@ def calling_loop(num_of_sentences, grammar, start_variable, testing, file_1):
                 string_list.append(i)
         for symbol in string_list:
             string_to_print += f" {symbol}"
-        print(string_to_print[1:])
+        #print(string_to_print[1:])
+        return (string_to_print[1:])
     if testing is True:
         file_1.close()
 
@@ -147,6 +153,3 @@ class Grammar:
                 options_of_search_variable = next_line
         rule = Rule()
         yield from call_duck_typed_method(options_of_search_variable[0:-1], rule, matching_variable, gram_object)
-
-if __name__ == '__main__':
-    main()

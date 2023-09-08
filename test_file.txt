@@ -1,0 +1,317 @@
+grin.txt
+ICS 33 Spring 2023
+Project 4: Still Looking for Something
+
+An example grammar for generating Grin syntax.  For example, when using the
+variable GrinStatement as the start variable, it will generate a random,
+but syntactically valid, Grin statement.
+
+{
+RandomRandom
+1 [FirstMale] [Last]
+1 [FirstFemale] [Last]
+1 [FirstMale]
+1 [FirstFemale]
+1 [FirstMale] [MiddleMale] [Last]
+1 [FirstFemale] [MiddleFemale] [Last]
+}
+
+{
+RandomFirstAndLast
+1 [FirstMale] [Last]
+1 [FirstFemale] [Last]
+}
+
+{
+RandomFirstName
+1 [FirstMale]
+1 [FirstFemale]
+}
+
+{
+RandomFirstMiddleLast
+1 [FirstMale] [MiddleMale] [Last]
+1 [FirstFemale] [MiddleFemale] [Last]
+}
+
+{
+MaleRandom
+1 [FirstMale] [Last]
+1 [FirstMale]
+1 [FirstMale] [MiddleMale] [Last]
+}
+
+{
+FemaleRandom
+1 [FirstFemale] [Last]
+1 [FirstFemale]
+1 [FirstFemale] [MiddleFemale] [Last]
+}
+
+{
+MaleFirstAndLast
+1 [FirstMale] [Last]
+}
+
+{
+FemaleFirstAndLast
+1 [FirstFemale] [Last]
+}
+
+{
+MaleFirstName
+1 [FirstMale]
+}
+
+{
+FemaleFirstName
+1 [FirstFemale]
+}
+
+{
+MaleFirstMiddleLast
+1 [FirstMale] [MiddleMale] [Last]
+}
+
+{
+FemaleFirstMiddleLast
+1 [FirstFemale] [MiddleFemale] [Last]
+}
+
+
+{
+FirstMale
+1 Yaya
+1 Oops
+1 Poop
+1 Python
+1 Chad
+1 Can I Please Get Some
+1 Ketchup
+1 Mustard
+1 French Fry
+1 Cheese
+1 Waffle
+1 Zesty
+1 Pretty Boy
+1 Yankee
+1 Nationally Ranked
+1 Yo mama
+1 GET EM OUTTA HERE
+1 SKEEEEYEEEE
+1 Rapper
+1 Foofoo
+1 Lips
+1 Booty
+1 Responsible
+1 Reckless
+1 Colossal
+1 Police
+1 Officer
+1 Mr
+1 Cutie pie
+1 Baby
+1 Julian
+1 Daniel
+1 Hunter
+1 Julio
+1 Jose
+1 John
+1 Hugo
+1 Jacques
+1 Logan
+1 Billy
+1 Tino
+1 Hector
+1 Rolando
+1 Orlando
+1 Fernando
+1 Juan
+1 Diego
+1 Jesus
+1 Jerald
+1 Levi
+1 Kevin
+1 Lebron
+1 Patrick
+1 Jeff
+1 Tyrone
+1 Kendrick
+1 Drake
+1 Rick
+1 Erik
+1 Jude
+1 Emilio
+1 Pablo
+1 Kanye
+1 Jermaine
+1 Luis
+1 Roberto
+1 Denzel
+1 Xavier
+1 Ulysses
+1 Cole
+1 Andy
+1 Zach
+1 Isaac
+1 Cooper
+1 Garrett
+1 Mike
+1 Michael
+1 Mickey
+1 Franz
+1 Abraham
+1 Pal
+1 Junior
+1 Yordan
+1 Manny
+1 Luka
+1 Stephen
+1 Ja
+1 Roger
+1 Bigfoot
+1 Zesty
+1 Big
+1 Lefty
+1 Waffle
+1 Earwax
+1 Poop
+1 Dolphin
+1 Tyler
+1 Moose
+1 T-shirt
+1 Bag
+1 Frank
+1 ©¨ˆ¥ˆ§®∂†©∫˜∫¡™£•ªºª¶ˆ
+1 OMG!
+1 WTF!
+1 lol
+1 Guy
+1 Ronald
+1 Tyranasaurus
+1 Straw
+1 Reeeeeee
+1 its ur boy
+1 Trea
+1 Playboi
+1 Train
+}
+
+{
+FirstFemale
+1 Isabel
+1 Maria
+1 Bianca
+1 Rebecca
+1 Janessa
+1 Nataly
+1 Nancy
+1 Samantha
+1 Jessica
+1 Sofia
+1 Erika
+1 Laura
+1 Jill
+1 Taylor
+1 Olivia
+1 Morgan
+1 Wanda
+1 Amelia
+1 Hayley
+1 Juliana
+1 Jenny
+1 Cristina
+1 Girl
+1 Baddie
+1 City Girl
+1 Barbie
+1 Indica
+1 Cher
+1 Yoko
+1 Frida
+1 Summer
+1 August
+1 September
+1 December
+1 May
+1 Heidi
+1 Kat
+1 Griselda
+1 Nicki
+}
+
+{
+MiddleMale
+1 J.
+1 D.
+1 David
+}
+
+{
+MiddleFemale
+1 Giovanna
+1 Angelica
+}
+
+{
+Last
+1 Aparicio
+1 Solis
+1 Imhoff
+1 James
+1 Goren
+1 Aguilar
+1 Papazis
+1 Johnson
+1 Rosario
+1 Gonzalez
+1 Perez
+1 Rogers
+1 Gomez
+1 Suarez
+1 Messi
+1 Jordan
+1 Jackson
+1 Alvarez
+1 Soto
+1 Tatis
+1 Ronaldo
+1 Beckham
+1 Loser
+1 Carti
+1 Graham
+1 Rivera
+1 Machado
+1 Hays
+1 Principio
+1 Ronota
+1 Fifilio
+1 Gamatile
+1 Qou
+1 Ryu
+1 Falter
+1 Poopoodee
+1 Disguto
+1 Fratee
+1 Potato
+1 Likum
+1 Hawk
+1 Nuts
+1 Muhammad
+1 Tuuuuuuuuu
+1 Eh
+1 •¶§•∞†©˙∆˙˚
+1 Pee
+1 whatchamacallit
+1 Needs Help
+1 Needs a Shower
+1 Smells
+1 Two Time
+1 Sauce
+1 Pizza
+1 Magamaloti
+1 Peperochalo
+1 Chiratilafiagonoscopatirios
+1 Uvevuvuevue
+1 WOAH!
+}
