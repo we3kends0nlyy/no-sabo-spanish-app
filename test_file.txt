@@ -7,6 +7,19 @@ variable GrinStatement as the start variable, it will generate a random,
 but syntactically valid, Grin statement.
 
 {
+Da
+1 DaBaby
+1 DaDevil
+1 DaKid
+1 Chance Da Napper
+1 Tyler Da See You Later
+1 Da Ocean
+1 DaLocoBaby
+1 DaPopo
+1 DaChosenOne
+}
+
+{
 RandomRandom
 1 [FirstMale] [Last]
 1 [FirstFemale] [Last]
@@ -251,6 +264,14 @@ MiddleMale
 MiddleFemale
 1 Giovanna
 1 Angelica
+1 Marie
+1 May
+1 Elizabeth
+1 Bailey
+1 Alexander
+1 Johanna
+1 Middle Names Are Lame
+1 Denae
 }
 
 {
@@ -314,4 +335,12 @@ Last
 1 Chiratilafiagonoscopatirios
 1 Uvevuvuevue
 1 WOAH!
+1 uwu
+1 yeet
+1 Zuzucaka
+1 §¶∞®†ƒ©˙∆˚
+1 Zaza
+1 Franks
+1 Hackeesack
+1 
 }
