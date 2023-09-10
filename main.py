@@ -43,13 +43,13 @@ def spanish_page():
 
 @app.route("/generate-word", methods=["GET"])
 def generate_word():
+    print("restart")
     api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
     try:
         response = requests.get(api_url_es)
         if response.status_code == 200:
             data = response.json()
             random_word = data[0]
-            print(random_word)
             api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
             response = requests.get(api_url)
             data = response.json()
@@ -59,12 +59,10 @@ def generate_word():
             else:
                 if len(data[0]['shortdef']) > 1:
                     translate_word1 = data[0]['shortdef'][0]
-                    print(translate_word1, "33333")
                     translate_word2 = data[0]['shortdef'][1]
                     translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
                     if ":" in translate_word1:
                         b = translate_word1.split(":")
-                        print(b)
                         for i in range(len(b)):
                             if b[i][0] == " ":
                                 c = b[i:]
@@ -81,36 +79,35 @@ def generate_word():
                 else:
                     translate_word_final = data[0]['shortdef'][0].capitalize()
             if random_word[0].islower():
-                ###GET THE DEFINITION FROM SPANISH DICTIONARY HERE###
-
                 url = f"https://www.spanishdict.com/translate/{random_word}"
                 response = requests.get(url)
-
-                # Check if the request was successful
                 if response.status_code == 200:
-                    # Parse the HTML content
                     soup = BeautifulSoup(response.text, "html.parser")
-
-                    # Search for and extract specific data
-                    # For example, extract all the links on the page
-                    #links = soup.find_all("a")
-                    #paragraphs = soup.find_all("p", string=lambda string: string and "http" not in string)
                     all_text = soup.get_text()
                     pattern = r'\b[ab]\.\s+(.*?)\n'
                     examples = re.findall(pattern, all_text, re.DOTALL)
-
-                    #for example in examples:
-                        #print(example.strip())
-                    # Print the links
-                    #for words in paragraphs:
-                        #print("Link Text:", words.text)
-                        #print("Link URL:", words.get("href"))
-
-                # Close the HTTP connection
+                    x = examples[0]
+                    x.split("2.")
+                    for i in range(len(x)):
+                        if x[i]+x[i+1] == "2.":
+                            a = x[0:i]
+                            break
+                    a = a.split(".") 
+                    left_side = a[0]
+                    new = left_side.split(" ")
+                    new_new = new[1:]
+                    newwww = ""
+                    for i in range(len(new_new)):
+                        if new_new[i].islower():
+                            del new_new[i]
+                            break
+                    for i in new_new:
+                        newwww = newwww + " " + i
+                    newwww = newwww + "."
+                    english_sentence = a[1] + "."
                 response.close()
-                return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final)
+                return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=newwww, english_sentence=english_sentence)
             else:
-                print("444333")
                 result = generate_word()
                 return result
         else:

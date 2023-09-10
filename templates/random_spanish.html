@@ -8,8 +8,14 @@
 </head>
 <body>
     <h1>Generated Word</h1>
-    <p id="generated-word">{{ random_word }}</p>
-    <p id="generated-word">{{ translate_word }}</p>
+    <p><strong>Spanish Word:</strong> <span id="generated-word">{{ random_word }}</span></p>
+    <p><strong>Translation:</strong> <span id="generated-word">{{ translate_word }}</span></p>
+    <p><strong>Spanish Sentence Example:</strong> <span id="generated-word">{{ spanish_sentence }}</span></p>
+    <p><strong>English Sentence Example:</strong> <span id="generated-word">{{ english_sentence }}</span></p>
+    <article>
+        <h3>{{ "More Info: " }}{{ }}</h3>
+    </article>
+    
 </body>
 </html>
 {% endblock %}
