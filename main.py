@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
+from bs4 import BeautifulSoup
 import project4
 import requests
+import re
 import time
 app = Flask(__name__)
 
@@ -47,44 +49,65 @@ def generate_word():
         if response.status_code == 200:
             data = response.json()
             random_word = data[0]
+            print(random_word)
             api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
             response = requests.get(api_url)
             data = response.json()
-            print("11111")
             if type(data[0]) is not dict:
-                print("2222")
                 result = generate_word()
                 return result
             else:
                 if len(data[0]['shortdef']) > 1:
                     translate_word1 = data[0]['shortdef'][0]
-                    #if ":" in translate_word1:
-                        #ranslate_word1 = ""
                     print(translate_word1, "33333")
                     translate_word2 = data[0]['shortdef'][1]
-                    #if ":" in translate_word2:
-                        #translate_word2 = ""
                     translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
                     if ":" in translate_word1:
-                        translate_word_final = translate_word2
+                        b = translate_word1.split(":")
+                        print(b)
+                        for i in range(len(b)):
+                            if b[i][0] == " ":
+                                c = b[i:]
+                                break
+                        translate_word1 = c[0][1:]
                     if ":" in translate_word2:
-                        translate_word_final = translate_word1
-                    #if ": " in translate_word_final:
-                        #word = translate_word_final
-                        #for i in range(len(translate_word_final)):
-                            #print(i)
-                            #if word[i] != ":":
-                                #word = word[:i] + word[i + 1:]
-                            #else:
-                                #break
-                    print(translate_word_final, "444222")
-                        #translate_word_final = word
+                        b = translate_word2.split(":")
+                        for i in range(len(b)):
+                            if b[i][0] == " ":
+                                c = b[i:]
+                                break
+                        translate_word2 = c[0][1:]
+                    translate_word_final = translate_word1 + "/" + translate_word2
                 else:
                     translate_word_final = data[0]['shortdef'][0].capitalize()
-                    print(translate_word_final, "4444")
             if random_word[0].islower():
                 ###GET THE DEFINITION FROM SPANISH DICTIONARY HERE###
-                print("55555")
+
+                url = f"https://www.spanishdict.com/translate/{random_word}"
+                response = requests.get(url)
+
+                # Check if the request was successful
+                if response.status_code == 200:
+                    # Parse the HTML content
+                    soup = BeautifulSoup(response.text, "html.parser")
+
+                    # Search for and extract specific data
+                    # For example, extract all the links on the page
+                    #links = soup.find_all("a")
+                    #paragraphs = soup.find_all("p", string=lambda string: string and "http" not in string)
+                    all_text = soup.get_text()
+                    pattern = r'\b[ab]\.\s+(.*?)\n'
+                    examples = re.findall(pattern, all_text, re.DOTALL)
+
+                    #for example in examples:
+                        #print(example.strip())
+                    # Print the links
+                    #for words in paragraphs:
+                        #print("Link Text:", words.text)
+                        #print("Link URL:", words.get("href"))
+
+                # Close the HTTP connection
+                response.close()
                 return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final)
             else:
                 print("444333")
