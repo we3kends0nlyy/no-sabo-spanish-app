@@ -7,6 +7,86 @@ variable GrinStatement as the start variable, it will generate a random,
 but syntactically valid, Grin statement.
 
 {
+Big
+1 Big Mac
+1 Big Toast
+1 Big Poppa
+1 Big Rizz
+1 Big Ups
+1 Big Snooze
+1 Big Sushi
+1 Big Veggie
+1 Big Falafel
+1 Big Zo
+1 Big Rico
+1 Big Tasty Pita Chip
+1 Big Man
+1 Big Shoesf
+1 Big Rara
+1 Big Coca Cola
+1 Big Fanta
+1 Big Pepsi
+1 Big Check
+1 Big Juice
+1 Big OJ
+1 Big Mistake
+1 Big Flatscreen TV
+1 Big Welcome To Chilis
+1 Big Lebron Fan
+1 Biiiiiiggggg Domincan Lunch
+1
+}
+{
+Lil
+1 Lil Boy
+1 Lil Wazoo
+1 Lil Fish
+1 Lil T
+1 Lil Big
+1 Lil Schmoop
+1 Lil Tall
+1 Lil Freezey
+1 Lil Hot
+1 Lil Weird
+1 Lil Cold
+1 Lil Much
+1 Lil Bit
+1 Lil Baby
+1 Lil Fousey Dirt
+1 Lil Shame
+1 Lil Taco
+1 Lil Coco
+1 Lil Dirt
+1 Lil Came Up Out The Mud
+1 Lil Street
+1 Lil Burb
+1 Lil Juju
+1 Lil Lame
+1 Lil Bit Of Swag
+1 Lil Discipline
+1 Lil T Shirt
+1 Lil Dino
+1 Lil Tortoise
+1 Lil Jellyfish
+1 Lil Ye
+1 Lil Brother
+1 Lil Childish
+1 Lil Fabulous
+1 Lil Sneezy
+1 Lil Flow
+1 Lil Rugged
+1 Lil Inspirational
+1 Lil Expedicious
+1 Lil Hamburger
+1 Lil Shake
+1 Lil Mama
+1 Lil Factual
+1 Lil Tuesday
+1 Lil Guacamole
+1 Lil 
+}
+
+{
 Da
 1 DaBaby
 1 DaDevil
@@ -17,6 +97,53 @@ Da
 1 DaLocoBaby
 1 DaPopo
 1 DaChosenOne
+1 DaRecklessOne
+1 DaPlayfulShark
+1 DaNosy
+1 DaGangsta
+1 DaInstigator
+1 DaGaslighter
+1 DaKing
+1 DaPutter
+1 DaSteak
+1 DaKangaroo
+1 DaRuler
+1 DaLotion
+1 DaMoisterized
+1 DaPrince
+1 DaChad
+1 DaNando
+1 DaPollo
+1 DaPrimo
+1 DaRock
+1 DaSwaggyOne
+1 DaHoneyBooBoo
+1 DaBestAlive
+1 DaSoftServe
+1 DaMcDonaldsSprite
+1 DaBigMac
+1 DaCarne
+1 DaDude
+1 DaDJ
+1 DaDingo
+1 DaBachelor
+1 DaTruest
+1 DaFranchise
+1 DaFlash
+1 DaMalicious
+1 DaGroovyMouse
+1 DaZestyBrocolli
+1 DaAsparagus
+1 DaChickenNugget
+1 DaReason
+1 DaAnswer
+1 DaGyatt
+1 DaRizz
+1 DaGodFather
+1 DaDudeWhoCantRap
+1 DaPennyOnTheSideOfTheRoad
+1 DaDiamondInDaRough
+1 DaAppleSauce
 }
 
 {
@@ -94,36 +221,7 @@ FemaleFirstMiddleLast
 
 {
 FirstMale
-1 Yaya
-1 Oops
-1 Poop
-1 Python
 1 Chad
-1 Can I Please Get Some
-1 Ketchup
-1 Mustard
-1 French Fry
-1 Cheese
-1 Waffle
-1 Zesty
-1 Pretty Boy
-1 Yankee
-1 Nationally Ranked
-1 Yo mama
-1 GET EM OUTTA HERE
-1 SKEEEEYEEEE
-1 Rapper
-1 Foofoo
-1 Lips
-1 Booty
-1 Responsible
-1 Reckless
-1 Colossal
-1 Police
-1 Officer
-1 Mr
-1 Cutie pie
-1 Baby
 1 Julian
 1 Daniel
 1 Hunter
@@ -182,32 +280,6 @@ FirstMale
 1 Stephen
 1 Ja
 1 Roger
-1 Bigfoot
-1 Zesty
-1 Big
-1 Lefty
-1 Waffle
-1 Earwax
-1 Poop
-1 Dolphin
-1 Tyler
-1 Moose
-1 T-shirt
-1 Bag
-1 Frank
-1 ©¨ˆ¥ˆ§®∂†©∫˜∫¡™£•ªºª¶ˆ
-1 OMG!
-1 WTF!
-1 lol
-1 Guy
-1 Ronald
-1 Tyranasaurus
-1 Straw
-1 Reeeeeee
-1 its ur boy
-1 Trea
-1 Playboi
-1 Train
 }
 
 {
@@ -235,8 +307,6 @@ FirstFemale
 1 Jenny
 1 Cristina
 1 Girl
-1 Baddie
-1 City Girl
 1 Barbie
 1 Indica
 1 Cher
@@ -251,6 +321,55 @@ FirstFemale
 1 Kat
 1 Griselda
 1 Nicki
+1 Aurora 
+1 Lucy 
+1 Anna
+1 Samantha 
+1 Caroline 
+1 Genesis 
+1 Aaliyah 
+1 Kennedy 
+1 Kinsley 
+1 Allison
+1 Maya 
+1 Sarah 
+1 Madelyn 
+1 Adeline 
+1 Alexa 
+1 Ariana 
+1 Elena 
+1 Gabriella 
+1 Naomi 
+1 Alice 
+1 Sadie 
+1 Hailey 
+1 Eva 
+1 Emilia 
+1 Autumn
+1 Brielle 
+1 Delilah 
+1 Isla
+1 Rylee 
+1 Katherine 
+1 Sophie 
+1 Josephine 
+1 Ivy 
+1 Liliana 
+1 Jade Maria 
+1 Taylor 
+1 Hadley 
+1 Kylie 
+1 Emery 
+1 Adalynn 
+1 Natalia
+1 Annabelle 
+1 Faith 
+1 Alexandra 
+1 Ximena 
+1 Ashley 
+1 Brianna 
+1 Raelynn 
+1 Bailey
 }
 
 {
@@ -270,7 +389,6 @@ MiddleFemale
 1 Bailey
 1 Alexander
 1 Johanna
-1 Middle Names Are Lame
 1 Denae
 }
 
@@ -298,7 +416,6 @@ Last
 1 Tatis
 1 Ronaldo
 1 Beckham
-1 Loser
 1 Carti
 1 Graham
 1 Rivera
@@ -311,36 +428,6 @@ Last
 1 Qou
 1 Ryu
 1 Falter
-1 Poopoodee
 1 Disguto
 1 Fratee
-1 Potato
-1 Likum
-1 Hawk
-1 Nuts
-1 Muhammad
-1 Tuuuuuuuuu
-1 Eh
-1 •¶§•∞†©˙∆˙˚
-1 Pee
-1 whatchamacallit
-1 Needs Help
-1 Needs a Shower
-1 Smells
-1 Two Time
-1 Sauce
-1 Pizza
-1 Magamaloti
-1 Peperochalo
-1 Chiratilafiagonoscopatirios
-1 Uvevuvuevue
-1 WOAH!
-1 uwu
-1 yeet
-1 Zuzucaka
-1 §¶∞®†ƒ©˙∆˚
-1 Zaza
-1 Franks
-1 Hackeesack
-1 
 }

@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>About Flask</title>
+  </head>
+  <body>
+    <h1> Random Spanish Word Generator </h1>
+    <p> </p>
+
+    <button id="generate-spanish-word">Generate Spanish Word</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#generate-spanish-word').click(function() {
+                window.location.href = "/generate-word";
+            });
+        });
+    </script>
+    
+    
+    
+
+  </body>
+</html>
+{% endblock %}
