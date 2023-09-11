@@ -8,21 +8,23 @@
 </head>
 <body>
     <h1>Study List</h1>
-
-    <form method="POST" action="/delete-words" id="delete-form">
-        <ul id="word-list">
-            {% for word in study_list %}
-                <li>
-                    <input type="checkbox" name="delete_word_ids" value="{{ word.id }}" style="display: none;">
-                    <a href="{{ url_for('word_detail', word_id=word.id) }}">{{ word.spanish_word }}</a>
-                </li>
-            {% endfor %}
-            <button type="button" id="show-delete-button" onclick="toggleDeleteOptions()">Delete</button>
-        </ul>
-        <button type="button" id="confirm-delete-button" style="display: none;" onclick="confirmDelete()">Confirm Delete</button>
-        <button type="button" id="cancel-button" style="display: none;" onclick="cancelDelete()">Cancel</button>
-    </form>
-
+    {% if not study_list %}
+        <p>It's empty in here!!</p>
+    {% else %}
+        <form method="POST" action="/delete-words" id="delete-form">
+            <ul id="word-list">
+                {% for word in study_list %}
+                    <li>
+                        <input type="checkbox" name="delete_word_ids" value="{{ word.id }}" style="display: none;">
+                        <a href="{{ url_for('word_detail', word_id=word.id) }}">{{ word.spanish_word }}</a>
+                    </li>
+                {% endfor %}
+                <button type="button" id="show-delete-button" onclick="toggleDeleteOptions()">Delete</button>
+            </ul>
+            <button type="button" id="confirm-delete-button" style="display: none;" onclick="confirmDelete()">Confirm Delete</button>
+            <button type="button" id="cancel-button" style="display: none;" onclick="cancelDelete()">Cancel</button>
+        </form>
+    {% endif %}
     <a href="/spanish_page">Back to Random Word Generator</a>
     {% with messages = get_flashed_messages() %}
     {% if messages %}

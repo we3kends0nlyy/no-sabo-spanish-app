@@ -9,9 +9,13 @@
 <body>
     <h1>Study List</h1>
     <ul>
-        {% for word in study_list %}
-            <li>{{ word.spanish_word }}</li>
-        {% endfor %}
+        {% if not study_list %}
+            <p>It's empty in here!!</p>
+        {% else %}
+            {% for word in study_list %}
+                <li>{{ word.spanish_word }}</li>
+            {% endfor %}
+        {% endif %}
     </ul>
     <a href="javascript:history.back()">Back to Your Word</a>
 </body>
