@@ -1,0 +1,19 @@
+{% extends "template.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study List</title>
+</head>
+<body>
+    <h1>Study List</h1>
+    <ul>
+        {% for word in study_list %}
+            <li>{{ word.spanish_word }}</li>
+        {% endfor %}
+    </ul>
+    <a href="javascript:history.back()">Back to Your Word</a>
+</body>
+</html>
+{% endblock %}

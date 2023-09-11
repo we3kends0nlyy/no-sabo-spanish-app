@@ -1,0 +1,24 @@
+{% extends "template.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Detail</title>
+</head>
+<body>
+    <h1></h1>
+    <p><strong>Spanish Word:</strong> <span id="generated-word">{{ word.spanish_word }}</span></p>
+    <p><strong>Translation:</strong> <span id="generated-word">{{ word.english_word }}</span></p>
+    <p><strong>Spanish Sentence Example:</strong> <span id="generated-word">{{ word.spanish_sentence }}</span></p>
+    <p><strong>English Sentence Example:</strong> <span id="generated-word">{{ word.english_sentence }}</span></p>
+    <p><strong>More Info:</strong> <a href="https://www.spanishdict.com/translation/{{word.spanish_word}}" target="_blank">SpanishDict.com</a></p>
+    <audio controls>
+        <source src={{word.audio}} type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <a href="{{ url_for('view_study_list2') }}">Back to Study List</a>
+</body>
+</html>
+{% endblock %}

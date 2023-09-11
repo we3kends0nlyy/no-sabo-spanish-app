@@ -1,14 +1,80 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
 from bs4 import BeautifulSoup
+from flask_sqlalchemy import SQLAlchemy
 import project4
 import requests
 import re
 import time
+import os
+
 app = Flask(__name__)
+app.secret_key = "toptopsecret123"
 
 MERIAM_WEBSTER_API_KEY = 'e659155d-35c4-421f-8e2c-4f58a19f549c'
 WORDSAPI_API_KEY = "2c34481877msh7ba15f7575bb54cp159d0fjsn0f2b169556ee"
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spanish_database.db'
+db = SQLAlchemy(app)
+
+
+class StudyList(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    spanish_word = db.Column(db.String(100), nullable=False, unique=True)
+    english_word = db.Column(db.String(100), nullable=False, unique=True)
+    spanish_sentence = db.Column(db.String(500), nullable=False, unique=True)
+    english_sentence = db.Column(db.String(500), nullable=False, unique=True)
+    audio = db.Column(db.String(200), nullable=False, unique=True)
+
+
+@app.route('/word_detail/<int:word_id>')
+def word_detail(word_id):
+    # Query the database to retrieve the word's details based on word_id
+    word = StudyList.query.get(word_id)
+
+    if word is not None:
+        # Render a template to display the word's details
+        return render_template('word_detail.html', word=word)
+    else:
+        # Handle the case where the word_id is not found
+        flash('Word not found.', 'danger')
+        return redirect(url_for('view_study_list'))
+
+
+
+@app.route('/save-to-study-list', methods=['POST'])
+def save_to_study_list():
+    spanish_word = request.form.get('spanish_word')
+    english_word = request.form.get('english_word')
+    spanish_sentence = request.form.get('spanish_sentence')
+    english_sentence = request.form.get('english_sentence')
+    audio = request.form.get('audio')
+
+    # Check if the word is not already in the study list
+    if not StudyList.query.filter_by(spanish_word=spanish_word).first():
+        new_word = StudyList(
+            spanish_word=spanish_word,
+            english_word=english_word,
+            spanish_sentence=spanish_sentence,
+            english_sentence=english_sentence,
+            audio=audio
+        )
+        db.session.add(new_word)
+        db.session.commit()
+        flash(f'Word "{spanish_word}" saved successfully!', 'success')
+
+    return redirect(url_for('view_study_list2'))
+
+
+@app.route('/study-list')
+def view_study_list():
+    study_list = StudyList.query.all()
+    print(study_list, "<<<<<<")
+    return render_template('span_study_list.html', study_list=study_list)
+
+@app.route('/study-list2')
+def view_study_list2():
+    study_list = StudyList.query.all()
+    return render_template('study_list_from_home.html', study_list=study_list)
 
 
 @app.route("/")
@@ -39,8 +105,6 @@ def spanish_page():
 
 
 
-
-
 @app.route("/generate-word", methods=["GET"])
 def generate_word():
     print("restart")
@@ -54,9 +118,11 @@ def generate_word():
             response = requests.get(api_url)
             data = response.json()
             if type(data[0]) is not dict:
+                print("11111")
                 result = generate_word()
                 return result
             else:
+                audio = data[0]['hwi']['prs'][0]['sound']['audio']
                 if len(data[0]['shortdef']) > 1:
                     translate_word1 = data[0]['shortdef'][0]
                     translate_word2 = data[0]['shortdef'][1]
@@ -93,6 +159,7 @@ def generate_word():
                             a = x[0:i]
                             break
                     a = a.split(".") 
+                    ###SEPARATE THIS CODE INTO MULTIPLE FUNCTIONS###
                     left_side = a[0]
                     new = left_side.split(" ")
                     new_new = new[1:]
@@ -105,8 +172,9 @@ def generate_word():
                         newwww = newwww + " " + i
                     newwww = newwww + "."
                     english_sentence = a[1] + "."
-                response.close()
-                return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=newwww, english_sentence=english_sentence)
+                    response.close()
+                    ###PLUS add study list(checks if word is already added, displays info of the word, allow to delete, other things)###
+                return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=newwww, english_sentence=english_sentence, audio = audio)
             else:
                 result = generate_word()
                 return result
