@@ -86,6 +86,9 @@ def view_study_list2():
     study_list = StudyList.query.all()
     return render_template('study_list_from_home.html', study_list=study_list)
 
+@app.route('/study-list-quiz')
+def study_list_quiz():
+    return render_template('study_list_quiz.html')
 
 @app.route("/")
 def home():
@@ -128,32 +131,39 @@ def generate_word():
             response = requests.get(api_url)
             data = response.json()
             if type(data[0]) is not dict:
-                print("11111")
-                result = generate_word()
-                return result
+                random_word = data[0]
+                api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
+                response = requests.get(api_url)
+                data = response.json()
+                random_word = data[0]['meta']['id']
             else:
+                random_word = data[0]['meta']['id']
+            if 'hwi' in data[0] and 'prs' in data[0]['hwi'] and data[0]['hwi']['prs']:
                 audio = data[0]['hwi']['prs'][0]['sound']['audio']
-                if len(data[0]['shortdef']) > 1:
-                    translate_word1 = data[0]['shortdef'][0]
-                    translate_word2 = data[0]['shortdef'][1]
-                    translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
-                    if ":" in translate_word1:
-                        b = translate_word1.split(":")
-                        for i in range(len(b)):
-                            if b[i][0] == " ":
-                                c = b[i:]
-                                break
-                        translate_word1 = c[0][1:]
-                    if ":" in translate_word2:
-                        b = translate_word2.split(":")
-                        for i in range(len(b)):
-                            if b[i][0] == " ":
-                                c = b[i:]
-                                break
-                        translate_word2 = c[0][1:]
-                    translate_word_final = translate_word1 + "/" + translate_word2
-                else:
-                    translate_word_final = data[0]['shortdef'][0].capitalize()
+            else:
+                audio = None
+
+            if len(data[0]['shortdef']) > 1:
+                translate_word1 = data[0]['shortdef'][0]
+                translate_word2 = data[0]['shortdef'][1]
+                translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
+                if ":" in translate_word1:
+                    b = translate_word1.split(":")
+                    for i in range(len(b)):
+                        if b[i][0] == " ":
+                            c = b[i:]
+                            break
+                    translate_word1 = c[0][1:]
+                if ":" in translate_word2:
+                    b = translate_word2.split(":")
+                    for i in range(len(b)):
+                        if b[i][0] == " ":
+                            c = b[i:]
+                            break
+                    translate_word2 = c[0][1:]
+                translate_word_final = translate_word1 + "/" + translate_word2
+            else:
+                translate_word_final = data[0]['shortdef'][0].capitalize()
             if random_word[0].islower():
                 url = f"https://www.spanishdict.com/translate/{random_word}"
                 response = requests.get(url)
@@ -183,7 +193,6 @@ def generate_word():
                     newwww = newwww + "."
                     english_sentence = a[1] + "."
                     response.close()
-                    ###PLUS add study list(checks if word is already added, displays info of the word, allow to delete, other things)###
                 return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=newwww, english_sentence=english_sentence, audio = audio)
             else:
                 result = generate_word()
@@ -191,6 +200,7 @@ def generate_word():
         else:
             return "Failed to generate a word. Please try again later."
     except Exception as e:
+        print("hehehe")
         print(e)
         result = generate_word()
         return result
