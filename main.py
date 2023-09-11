@@ -28,14 +28,11 @@ class StudyList(db.Model):
 
 @app.route('/word_detail/<int:word_id>')
 def word_detail(word_id):
-    # Query the database to retrieve the word's details based on word_id
     word = StudyList.query.get(word_id)
 
     if word is not None:
-        # Render a template to display the word's details
         return render_template('word_detail.html', word=word)
     else:
-        # Handle the case where the word_id is not found
         flash('Word not found.', 'danger')
         return redirect(url_for('view_study_list'))
 
@@ -44,15 +41,12 @@ def delete_words():
     if request.method == 'POST':
         word_ids_to_delete = request.form.getlist('delete_word_ids')
 
-        # Check if any words were selected for deletion
         if word_ids_to_delete:
-            # Loop through the selected word IDs and delete them from the database
             for word_id in word_ids_to_delete:
                 word = StudyList.query.get(word_id)
                 if word:
                     db.session.delete(word)
             
-            # Commit the changes to the database
             db.session.commit()
             flash('Selected words have been deleted successfully!', 'success')
 
@@ -66,7 +60,6 @@ def save_to_study_list():
     english_sentence = request.form.get('english_sentence')
     audio = request.form.get('audio')
 
-    # Check if the word is not already in the study list
     if not StudyList.query.filter_by(spanish_word=spanish_word).first():
         new_word = StudyList(
             spanish_word=spanish_word,
