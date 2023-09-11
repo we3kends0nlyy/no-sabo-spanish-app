@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
 from bs4 import BeautifulSoup
+from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
 import project4
 import requests
@@ -78,7 +79,6 @@ def save_to_study_list():
 @app.route('/study-list')
 def view_study_list():
     study_list = StudyList.query.all()
-    print(study_list, "<<<<<<")
     return render_template('span_study_list.html', study_list=study_list)
 
 @app.route('/study-list2')
@@ -88,6 +88,18 @@ def view_study_list2():
 
 @app.route('/study-list-quiz')
 def study_list_quiz():
+    random_word = db.session.query(StudyList).order_by(func.random()).first()
+    print(random_word.spanish_word, random_word.english_word)
+    word1 = generate_word2()
+    print(word1)
+    print("YAYAYAYA")
+    word2 = generate_word2()
+    print(word2)
+    word3 = generate_word2()
+    print(word3)
+    ##now get the spanish word and the three random spanish words and their translations to the html screen where the actual quiz takes place with radio buttons
+    ##to choose which answer is correct. decide on what i want to do for how many tries i want to give the user, or to just give them infinite tries or to allow them to click a show answer 
+    ##button or to show the right answer after a certain number of tries. also have the next button to bring up the next question.
     return render_template('study_list_quiz.html')
 
 @app.route("/")
@@ -114,6 +126,55 @@ def process_form():
 @app.route("/spanish_page")
 def spanish_page():
     return render_template("spanish.html")
+
+def generate_word2():
+    print("restart2")
+    api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
+    try:
+        response = requests.get(api_url_es)
+        if response.status_code == 200:
+            data = response.json()
+            random_word = data[0]
+            api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
+            response = requests.get(api_url)
+            data = response.json()
+            if type(data[0]) is not dict:
+                random_word = data[0]
+                api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
+                response = requests.get(api_url)
+                data = response.json()
+                random_word = data[0]['meta']['id']
+            else:
+                random_word = data[0]['meta']['id']
+            if len(data[0]['shortdef']) > 1:
+                translate_word1 = data[0]['shortdef'][0]
+                translate_word2 = data[0]['shortdef'][1]
+                translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
+                if ":" in translate_word1:
+                    b = translate_word1.split(":")
+                    for i in range(len(b)):
+                        if b[i][0] == " ":
+                            c = b[i:]
+                            break
+                    translate_word1 = c[0][1:]
+                if ":" in translate_word2:
+                    b = translate_word2.split(":")
+                    for i in range(len(b)):
+                        if b[i][0] == " ":
+                            c = b[i:]
+                            break
+                    translate_word2 = c[0][1:]
+                translate_word_final = translate_word1 + "/" + translate_word2
+            else:
+                translate_word_final = data[0]['shortdef'][0].capitalize()
+            return [random_word, translate_word_final]
+        else:
+            return "Failed to generate a word. Please try again later."
+    except Exception as e:
+        print("hehehe")
+        print(e)
+        result = generate_word2()
+        return result
 
 
 
@@ -142,7 +203,6 @@ def generate_word():
                 audio = data[0]['hwi']['prs'][0]['sound']['audio']
             else:
                 audio = None
-
             if len(data[0]['shortdef']) > 1:
                 translate_word1 = data[0]['shortdef'][0]
                 translate_word2 = data[0]['shortdef'][1]
