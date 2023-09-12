@@ -1,12 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 from bs4 import BeautifulSoup
 from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
 import project4
 import requests
 import re
-import time
-import os
 import random
 
 app = Flask(__name__)
@@ -125,13 +123,10 @@ def random_quiz():
     english_sentence = part0[3]
     audio = part0[4]
     part1 = generate_word2()
-    spanish_word1 = part1[0]
     english_word1 = part1[1]
     part2 = generate_word2()
-    spanish_word2 = part2[0]
     english_word2 = part2[1]
     part3 = generate_word2()
-    spanish_word3 = part3[0]
     english_word3 = part3[1]
     answer_options = [english_correct_word, english_word1, english_word2, english_word3]
     random.shuffle(answer_options)
@@ -177,13 +172,10 @@ def study_list_quiz():
         english_sentence = random_word.english_sentence
         audio = random_word.audio
         part1 = generate_word2()
-        spanish_word1 = part1[0]
         english_word1 = part1[1]
         part2 = generate_word2()
-        spanish_word2 = part2[0]
         english_word2 = part2[1]
         part3 = generate_word2()
-        spanish_word3 = part3[0]
         english_word3 = part3[1]
         answer_options = [english_correct_word, english_word1, english_word2, english_word3]
         random.shuffle(answer_options)
@@ -211,7 +203,6 @@ def submit_quiz():
     else:
         flash("Wrong, please try again!", 'danger')
         return render_template('study_list_quiz.html', spanish_correct_word=spanish_correct, answer_options=answer_option, english_correct_word=english_correct, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
-    ##CHECK IF THERE ARE ANY WORDS IN THE STUDY LIST BEFORE TAKING THE QUIZ###
 
 @app.route('/correct-quiz-answer')
 def correct_quiz_answer():
@@ -243,179 +234,115 @@ def process_form():
 def spanish_page():
     return render_template("spanish.html")
 
-def generate_word2():
-    print("restart2")
-    api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
-    try:
-        response = requests.get(api_url_es)
-        if response.status_code == 200:
-            data = response.json()
-            random_word = data[0]
-            api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
-            response = requests.get(api_url)
-            data = response.json()
-            if type(data[0]) is not dict:
-                random_word = data[0]
-                api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
-                response = requests.get(api_url)
-                data = response.json()
-                random_word = data[0]['meta']['id']
-            else:
-                random_word = data[0]['meta']['id']
-            url = f"https://www.spanishdict.com/translate/{random_word}"
-            response = requests.get(url)
-            soup = BeautifulSoup(response.text, "html.parser")
-            all_text = soup.get_text()
-            pattern = r'\b[ab]\.\s+(.*?)\n'
-            examples = re.findall(pattern, all_text, re.DOTALL)
-            if len(examples) == 0:
-                return generate_word2()
-            if 'hwi' in data[0] and 'prs' in data[0]['hwi'] and data[0]['hwi']['prs'] and 'sound' in data[0]['hwi']['prs'][0]:
-                audio = data[0]['hwi']['prs'][0]['sound']['audio']
-            else:
-                audio = None
-            if len(data[0]['shortdef']) > 1:
-                translate_word1 = data[0]['shortdef'][0]
-                translate_word2 = data[0]['shortdef'][1]
-                translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
-                if ":" in translate_word1:
-                    b = translate_word1.split(":")
-                    for i in range(len(b)):
-                        if b[i][0] == " ":
-                            c = b[i:]
-                            break
-                    translate_word1 = c[0][1:]
-                if ":" in translate_word2:
-                    b = translate_word2.split(":")
-                    for i in range(len(b)):
-                        if b[i][0] == " ":
-                            c = b[i:]
-                            break
-                    translate_word2 = c[0][1:]
-                translate_word_final = translate_word1 + "/" + translate_word2
-            else:
-                translate_word_final = data[0]['shortdef'][0].capitalize()
-            print("4444")
-            if random_word[0].islower():
-                url = f"https://www.spanishdict.com/translate/{random_word}"
-                response = requests.get(url)
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, "html.parser")
-                    all_text = soup.get_text()
-                    pattern = r'\b[ab]\.\s+(.*?)\n'
-                    examples = re.findall(pattern, all_text, re.DOTALL)
-                    x = examples[0]
-                    if "b." in x:
-                        splitter = x.split("2.")
-                        splitter2 = splitter[0].split("b.")
-                        split3 = splitter2[0].split(".")
-                        split4 = [split3[0], split3[1]]
-                        split5 = split4[0].split(" ")
-                        span = split5[1:]
-                        spanish_sentence1 = ' '.join(span)
-                        spanish_sentence = spanish_sentence1 + "."
-                        english_sentence = split4[1] + "."
-                    else:
-                        spanish_sentence = None
-                        english_sentence = None
-                    response.close()
-            return [random_word, translate_word_final, spanish_sentence, english_sentence, audio]
-        else:
-            return "Failed to generate a word. Please try again later."
-    except Exception as e:
-        print("hehehe")
-        print(e)
-        result = generate_word2()
-        return result
-
-
-
-
 @app.route("/generate-word", methods=["GET"])
 def generate_word():
-    print("restart")
-    api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
     try:
-        response = requests.get(api_url_es)
-        if response.status_code == 200:
-            data = response.json()
-            random_word = data[0]
-            api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
-            response = requests.get(api_url)
-            data = response.json()
-            if type(data[0]) is not dict:
-                random_word = data[0]
-                api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
-                response = requests.get(api_url)
-                data = response.json()
-                random_word = data[0]['meta']['id']
-            else:
-                random_word = data[0]['meta']['id']
-            if 'hwi' in data[0] and 'prs' in data[0]['hwi'] and data[0]['hwi']['prs']:
-                audio = data[0]['hwi']['prs'][0]['sound']['audio']
-            else:
-                audio = None
-            if len(data[0]['shortdef']) > 1:
-                translate_word1 = data[0]['shortdef'][0]
-                translate_word2 = data[0]['shortdef'][1]
-                translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
-                if ":" in translate_word1:
-                    b = translate_word1.split(":")
-                    for i in range(len(b)):
-                        if b[i][0] == " ":
-                            c = b[i:]
-                            break
-                    translate_word1 = c[0][1:]
-                if ":" in translate_word2:
-                    b = translate_word2.split(":")
-                    for i in range(len(b)):
-                        if b[i][0] == " ":
-                            c = b[i:]
-                            break
-                    translate_word2 = c[0][1:]
-                translate_word_final = translate_word1 + "/" + translate_word2
-            else:
-                translate_word_final = data[0]['shortdef'][0].capitalize()
-            if random_word[0].islower():
-                url = f"https://www.spanishdict.com/translate/{random_word}"
-                response = requests.get(url)
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, "html.parser")
-                    all_text = soup.get_text()
-                    pattern = r'\b[ab]\.\s+(.*?)\n'
-                    examples = re.findall(pattern, all_text, re.DOTALL)
-                    x = examples[0]
-                    x.split("2.")
-                    for i in range(len(x)):
-                        if x[i]+x[i+1] == "2.":
-                            a = x[0:i]
-                            break
-                    a = a.split(".") 
-                    ###SEPARATE THIS CODE INTO MULTIPLE FUNCTIONS###
-                    left_side = a[0]
-                    new = left_side.split(" ")
-                    new_new = new[1:]
-                    newwww = ""
-                    for i in range(len(new_new)):
-                        if new_new[i].islower():
-                            del new_new[i]
-                            break
-                    for i in new_new:
-                        newwww = newwww + " " + i
-                    newwww = newwww + "."
-                    english_sentence = a[1] + "."
-                    response.close()
-                return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=newwww, english_sentence=english_sentence, audio = audio)
-            else:
-                result = generate_word()
-                return result
+        data = get_data()
+        random_word = data[0]
+        translate_word_final = data[1]
+        audio = data[2]
+        if random_word[0].islower():
+            list_of_sentences = find_sentences(random_word)
+            spanish_sentence = list_of_sentences[0]
+            english_sentence = list_of_sentences[1]
+            return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=spanish_sentence, english_sentence=english_sentence, audio = audio)
         else:
-            return "Failed to generate a word. Please try again later."
+            result = generate_word()
+            return result
     except Exception as e:
-        print("hehehe")
         print(e)
         result = generate_word()
         return result
+
+def generate_word2():
+    try:
+        data = get_data()
+        random_word = data[0]
+        translate_word_final = data[1]
+        audio = data[2]
+        if random_word.islower():
+            list_of_sentences = find_sentences(random_word)
+            spanish_sentence = list_of_sentences[0]
+            english_sentence = list_of_sentences[1]
+            return [random_word, translate_word_final, spanish_sentence, english_sentence, audio]
+        else:
+            result = generate_word2()
+            return result
+    except Exception as e:
+        print(e)
+        result = generate_word2()
+        return result
+    
+def get_data():
+    api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
+    response = requests.get(api_url_es)
+    if response.status_code == 200:
+        data = response.json()
+        random_word = data[0]
+        api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
+        response = requests.get(api_url)
+        data = response.json()
+        if type(data[0]) is not dict:
+            random_word = data[0]
+            api_url = f"https://www.dictionaryapi.com/api/v3/references/spanish/json/{random_word}?key={MERIAM_WEBSTER_API_KEY}"
+            response = requests.get(api_url)
+            data = response.json()
+            random_word = data[0]['meta']['id']
+        else:
+            random_word = data[0]['meta']['id']
+        if ":" in random_word:
+            random_word = random_word.split(":")[0]
+        if 'hwi' in data[0] and 'prs' in data[0]['hwi'] and data[0]['hwi']['prs'] and 'sound' in data[0]['hwi']['prs'][0]:
+            audio = data[0]['hwi']['prs'][0]['sound']['audio']
+        else:
+            audio = None
+        if len(data[0]['shortdef']) > 1:
+            translate_word1 = data[0]['shortdef'][0]
+            translate_word2 = data[0]['shortdef'][1]
+            translate_word_final = translate_word1.capitalize() + "/" + translate_word2.capitalize()
+            if ":" in translate_word1:
+                b = translate_word1.split(":")
+                for i in range(len(b)):
+                    if b[i][0] == " ":
+                        c = b[i:]
+                        break
+                translate_word1 = c[0][1:]
+            if ":" in translate_word2:
+                b = translate_word2.split(":")
+                for i in range(len(b)):
+                    if b[i][0] == " ":
+                        c = b[i:]
+                        break
+                translate_word2 = c[0][1:]
+            translate_word_final = translate_word1 + "/" + translate_word2
+        else:
+            translate_word_final = data[0]['shortdef'][0].capitalize()
+        return [random_word, translate_word_final, audio]
+    else:
+        return "Failed to generate a word. Please try again later."
+
+def find_sentences(random_word):
+    url = f"https://www.spanishdict.com/examples/{random_word}?lang=es"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    all_text = soup.get_text()
+    sentences2 = re.split(r'(?<=\d\w\)\w)|(?=\d\w\)\w)', all_text)
+    if len(sentences2) > 0:
+        first_letter = sentences2[-2][-1]
+        sent = sentences2[-1].split(".")
+        spanish_sentence = first_letter + sent[0] + "."
+        english_sentence = sent[1] + "."
+
+    else:
+        sentences = re.split(r'(?<=\d\))|(?=\d\))', all_text)
+        for i in sentences:
+            if i[0].isupper():
+                sentence = i
+                break
+        spanish_sentence = sentence.split(".")[0] + "."
+        english_sentence = sentence.split(".")[1] + "."
+    return [spanish_sentence, english_sentence]
+
 
 if __name__ == "__main__":
     app.run(debug=True)
