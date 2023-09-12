@@ -7,12 +7,12 @@
     <title>Study List Quiz</title>
 </head>
 <body>
-    <h1>Study List Quiz</h1>
+    <h1>Random Word Quiz</h1>
     
     <p>Translate the Spanish word:</p>
     <p>{{ spanish_correct_word }}</p>
 
-    <form method="post" action="/submit-quiz">
+    <form method="post" action="/submit-random-quiz">
         <input type="hidden" name="spanish_correct_word" value="{{ spanish_correct_word }}">
         <input type="hidden" name="english_correct_word" value="{{ english_correct_word }}">
         <input type="hidden" name="english_word1" value="{{ english_word1 }}">

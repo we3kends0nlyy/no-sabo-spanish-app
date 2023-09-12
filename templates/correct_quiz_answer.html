@@ -1,0 +1,31 @@
+{% extends "template.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>That's correct!!</title>
+</head>
+<body>
+    <h1>Here is the full information on the word</h1>
+    <p><strong>Spanish Word:</strong> <span id="generated-word">{{ random_word }}</span></p>
+    <p><strong>Translation:</strong> <span id="generated-word">{{ translate_word }}</span></p>
+    <p><strong>Spanish Sentence Example:</strong> <span id="generated-word">{{ spanish_sentence }}</span></p>
+    <p><strong>English Sentence Example:</strong> <span id="generated-word">{{ english_sentence }}</span></p>
+    <p><strong>More Info:</strong> <a href="https://www.spanishdict.com/translation/{{random_word}}" target="_blank">SpanishDict.com</a></p>
+    <audio controls>
+        <source src="{{audio}}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <a href="/study-list">View Study List</a>
+    <form method="get" action="/study-list-quiz">
+        <input type="hidden" name="random_word" value="{{ random_word }}">
+        <input type="hidden" name="translate_word" value="{{ translate_word }}">
+        <input type="hidden" name="spanish_sentence" value="{{ spanish_sentence }}">
+        <input type="hidden" name="english_sentence" value="{{ english_sentence }}">
+        <input type="hidden" name="audio" value="{{ audio }}">
+        <button type="submit">Next Question</button>
+    </form>
+</body>
+</html>
+{% endblock %}

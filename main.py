@@ -7,6 +7,7 @@ import requests
 import re
 import time
 import os
+import random
 
 app = Flask(__name__)
 app.secret_key = "toptopsecret123"
@@ -75,6 +76,29 @@ def save_to_study_list():
 
     return redirect(url_for('view_study_list2'))
 
+@app.route('/save-to-study-list2', methods=['POST'])
+def save_to_study_list2():
+    spanish_word = request.form.get('spanish_word')
+    english_word = request.form.get('english_word')
+    spanish_sentence = request.form.get('spanish_sentence')
+    english_sentence = request.form.get('english_sentence')
+    audio = request.form.get('audio')
+
+    if not StudyList.query.filter_by(spanish_word=spanish_word).first():
+        new_word = StudyList(
+            spanish_word=spanish_word,
+            english_word=english_word,
+            spanish_sentence=spanish_sentence,
+            english_sentence=english_sentence,
+            audio=audio
+        )
+        db.session.add(new_word)
+        db.session.commit()
+        flash(f'Word "{spanish_word}" saved successfully!', 'success')
+
+    return redirect(url_for('view_study_list3'))
+
+
 
 @app.route('/study-list')
 def view_study_list():
@@ -86,21 +110,113 @@ def view_study_list2():
     study_list = StudyList.query.all()
     return render_template('study_list_from_home.html', study_list=study_list)
 
+@app.route('/study-list3')
+def view_study_list3():
+    study_list = StudyList.query.all()
+    return render_template('study_list_back_to_random.html', study_list=study_list)
+
+@app.route('/random-quiz')
+def random_quiz():
+    part0 = generate_word2()
+    print(part0)
+    spanish_correct_word = part0[0]
+    english_correct_word = part0[1]
+    spanish_sentence = part0[2]
+    english_sentence = part0[3]
+    audio = part0[4]
+    part1 = generate_word2()
+    spanish_word1 = part1[0]
+    english_word1 = part1[1]
+    part2 = generate_word2()
+    spanish_word2 = part2[0]
+    english_word2 = part2[1]
+    part3 = generate_word2()
+    spanish_word3 = part3[0]
+    english_word3 = part3[1]
+    answer_options = [english_correct_word, english_word1, english_word2, english_word3]
+    random.shuffle(answer_options)
+    num = None
+    for i in range(len(answer_options)):
+        if answer_options[i] == english_correct_word:
+            num = i
+            break
+    return render_template('random_quiz.html', spanish_correct_word=spanish_correct_word, correct_option_index=num, answer_options=answer_options, english_correct_word=english_correct_word, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, spanish_sentence=spanish_sentence, english_sentence=english_sentence, audio=audio)
+
+@app.route('/submit-random-quiz', methods=["POST"])
+def submit_random_quiz():
+    answer = request.form.get("answer")
+    spanish_correct = request.form.get("spanish_correct_word")
+    english_correct = request.form.get("english_correct_word")
+    english_word1 = request.form.get("english_word1")
+    english_word2 = request.form.get("english_word2")
+    english_word3 = request.form.get("english_word3")
+    answer_option = [english_correct, english_word1, english_word2, english_word3]
+    spanish_sentence = request.form.get("spanish_sentence")
+    english_sentence = request.form.get("english_sentence")
+    audio = request.form.get("audio")
+    if answer == english_correct:
+        return render_template('correct_answer_random.html', random_word=spanish_correct, answer_options=answer_option, translate_word=english_correct, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
+    else:
+        flash("Wrong, please try again!", 'danger')
+        return render_template('random_quiz.html', spanish_correct_word=spanish_correct, answer_options=answer_option, english_correct_word=english_correct, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
+
+@app.route('/correct-random-answer')
+def correct_random_answer():
+    return render_template('correct_answer_random.html')
+
+
 @app.route('/study-list-quiz')
 def study_list_quiz():
     random_word = db.session.query(StudyList).order_by(func.random()).first()
-    print(random_word.spanish_word, random_word.english_word)
-    word1 = generate_word2()
-    print(word1)
-    print("YAYAYAYA")
-    word2 = generate_word2()
-    print(word2)
-    word3 = generate_word2()
-    print(word3)
-    ##now get the spanish word and the three random spanish words and their translations to the html screen where the actual quiz takes place with radio buttons
-    ##to choose which answer is correct. decide on what i want to do for how many tries i want to give the user, or to just give them infinite tries or to allow them to click a show answer 
-    ##button or to show the right answer after a certain number of tries. also have the next button to bring up the next question.
-    return render_template('study_list_quiz.html')
+    if random_word is None:
+        return render_template('spanish.html', message="You must add a word to the study list before starting the quiz!")
+    else:
+        spanish_correct_word = random_word.spanish_word
+        english_correct_word = random_word.english_word
+        spanish_sentence = random_word.spanish_sentence
+        english_sentence = random_word.english_sentence
+        audio = random_word.audio
+        part1 = generate_word2()
+        spanish_word1 = part1[0]
+        english_word1 = part1[1]
+        part2 = generate_word2()
+        spanish_word2 = part2[0]
+        english_word2 = part2[1]
+        part3 = generate_word2()
+        spanish_word3 = part3[0]
+        english_word3 = part3[1]
+        answer_options = [english_correct_word, english_word1, english_word2, english_word3]
+        random.shuffle(answer_options)
+        num = None
+        for i in range(len(answer_options)):
+            if answer_options[i] == english_correct_word:
+                num = i
+                break
+        return render_template('study_list_quiz.html', spanish_correct_word=spanish_correct_word, correct_option_index=num, answer_options=answer_options, english_correct_word=english_correct_word, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
+
+@app.route('/submit-quiz', methods=["POST"])
+def submit_quiz():
+    answer = request.form.get("answer")
+    audio = request.form.get("audio")
+    spanish_correct = request.form.get("spanish_correct_word")
+    english_correct = request.form.get("english_correct_word")
+    english_word1 = request.form.get("english_word1")
+    english_word2 = request.form.get("english_word2")
+    english_word3 = request.form.get("english_word3")
+    spanish_sentence = request.form.get("spanish_sentence")
+    english_sentence = request.form.get("english_sentence")
+    answer_option = [english_correct, english_word1, english_word2, english_word3]
+    if answer == english_correct:
+        return render_template('correct_quiz_answer.html', random_word=spanish_correct, answer_options=answer_option, translate_word=english_correct, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
+    else:
+        flash("Wrong, please try again!", 'danger')
+        return render_template('study_list_quiz.html', spanish_correct_word=spanish_correct, answer_options=answer_option, english_correct_word=english_correct, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
+    ##CHECK IF THERE ARE ANY WORDS IN THE STUDY LIST BEFORE TAKING THE QUIZ###
+
+@app.route('/correct-quiz-answer')
+def correct_quiz_answer():
+    return render_template('correct_quiz_answer.html')
+
 
 @app.route("/")
 def home():
@@ -146,6 +262,18 @@ def generate_word2():
                 random_word = data[0]['meta']['id']
             else:
                 random_word = data[0]['meta']['id']
+            url = f"https://www.spanishdict.com/translate/{random_word}"
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, "html.parser")
+            all_text = soup.get_text()
+            pattern = r'\b[ab]\.\s+(.*?)\n'
+            examples = re.findall(pattern, all_text, re.DOTALL)
+            if len(examples) == 0:
+                return generate_word2()
+            if 'hwi' in data[0] and 'prs' in data[0]['hwi'] and data[0]['hwi']['prs'] and 'sound' in data[0]['hwi']['prs'][0]:
+                audio = data[0]['hwi']['prs'][0]['sound']['audio']
+            else:
+                audio = None
             if len(data[0]['shortdef']) > 1:
                 translate_word1 = data[0]['shortdef'][0]
                 translate_word2 = data[0]['shortdef'][1]
@@ -167,7 +295,31 @@ def generate_word2():
                 translate_word_final = translate_word1 + "/" + translate_word2
             else:
                 translate_word_final = data[0]['shortdef'][0].capitalize()
-            return [random_word, translate_word_final]
+            print("4444")
+            if random_word[0].islower():
+                url = f"https://www.spanishdict.com/translate/{random_word}"
+                response = requests.get(url)
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, "html.parser")
+                    all_text = soup.get_text()
+                    pattern = r'\b[ab]\.\s+(.*?)\n'
+                    examples = re.findall(pattern, all_text, re.DOTALL)
+                    x = examples[0]
+                    if "b." in x:
+                        splitter = x.split("2.")
+                        splitter2 = splitter[0].split("b.")
+                        split3 = splitter2[0].split(".")
+                        split4 = [split3[0], split3[1]]
+                        split5 = split4[0].split(" ")
+                        span = split5[1:]
+                        spanish_sentence1 = ' '.join(span)
+                        spanish_sentence = spanish_sentence1 + "."
+                        english_sentence = split4[1] + "."
+                    else:
+                        spanish_sentence = None
+                        english_sentence = None
+                    response.close()
+            return [random_word, translate_word_final, spanish_sentence, english_sentence, audio]
         else:
             return "Failed to generate a word. Please try again later."
     except Exception as e:

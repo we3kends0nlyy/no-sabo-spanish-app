@@ -1,0 +1,72 @@
+{% extends "template.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study List</title>
+</head>
+<body>
+    <h1>Study List</h1>
+    {% if not study_list %}
+        <p>It's empty in here!!</p>
+    {% else %}
+        <form method="POST" action="/delete-words" id="delete-form">
+            <ul id="word-list">
+                {% for word in study_list %}
+                    <li>
+                        <input type="checkbox" name="delete_word_ids" value="{{ word.id }}" style="display: none;">
+                        <a href="{{ url_for('word_detail', word_id=word.id) }}">{{ word.spanish_word }}</a>
+                    </li>
+                {% endfor %}
+                <button type="button" id="show-delete-button" onclick="toggleDeleteOptions()">Delete</button>
+            </ul>
+            <button type="button" id="confirm-delete-button" style="display: none;" onclick="confirmDelete()">Confirm Delete</button>
+            <button type="button" id="cancel-button" style="display: none;" onclick="cancelDelete()">Cancel</button>
+        </form>
+    {% endif %}
+    <a href="/random-quiz">Back to Random Word Quiz</a>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages">
+        {% for message in messages %}
+            <div class="flash-message">{{ message }}</div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+
+    <script>
+        function toggleDeleteOptions() {
+            const showDeleteButton = document.getElementById("show-delete-button");
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const confirmDeleteButton = document.getElementById("confirm-delete-button");
+            const cancelButton = document.getElementById("cancel-button");
+
+            if (showDeleteButton.style.display !== "none") {
+                showDeleteButton.style.display = "none";
+                checkboxes.forEach(checkbox => (checkbox.style.display = "inline"));
+                confirmDeleteButton.style.display = "inline";
+                cancelButton.style.display = "inline";
+            } else {
+                showDeleteButton.style.display = "inline";
+                checkboxes.forEach(checkbox => {
+                    checkbox.style.display = "none";
+                    checkbox.checked = false; // Uncheck the checkboxes
+                });
+                confirmDeleteButton.style.display = "none";
+                cancelButton.style.display = "none";
+            }
+        }
+
+        function confirmDelete() {
+            document.getElementById("delete-form").submit();
+        }
+
+        function cancelDelete() {
+            toggleDeleteOptions(); // Hide checkboxes and buttons
+        }
+    </script>
+</body>
+</html>
+{% endblock %}
