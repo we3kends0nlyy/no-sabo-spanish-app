@@ -2,21 +2,26 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Flask Parent Template</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Balsamiq Sans">
     
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/template.css') }}">
 
 </head>
   <body>
+    <ul class="menu">
+      <li class="menu-item"><a href="{{ url_for('home') }}">Home</a></li>
+      <li class="menu-item"><a href="{{ url_for('generate_word') }}">Random Spanish Word Generator</a></li>
+      <li class="menu-item"><a href="{{ url_for('view_study_list2') }}">View Study List</a></li>
+      <li class="menu-item"><a href="{{ url_for('study_list_quiz') }}">Quiz Your Study List Words</a></li>
+      <li class="menu-item"><a href="{{ url_for('random_quiz') }}">Quiz Random Words</a></li>
+      <li class="menu-item"><a href="{{ url_for('home') }}">About</a></li>
+    </ul>
     <header>
       <div class="container">
-        <h1 class="logo">No Sabo</h1>
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/NoSabo.png') }}" alt="No Sabo Logo"style="width: 200px; height: auto;">
+        </a>
         <strong><nav>
-          <ul class="menu">
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('about') }}">Random Name Generator</a></li>
-            <li><a href="{{ url_for('spanish_page') }}">Random Spanish Word Generator</a></li>
-          </ul>
         </nav></strong>
       </div>
     </header>

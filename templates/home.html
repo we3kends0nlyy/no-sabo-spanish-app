@@ -1,16 +1,23 @@
+{% extends "template.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Flask Tutorial</title>
-  </head>
-  <body>
-    {% extends "template.html" %}
-    {% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Balsamiq Sans">
+</head>
+<body>
+  <ul class="menu">
+    <li class="menu-item"><a href="{{ url_for('generate_word') }}">Random Spanish Word Generator</a></li>
+    <li class="menu-item"><a href="{{ url_for('view_study_list2') }}">View Study List</a></li>
+    <li class="menu-item"><a href="{{ url_for('study_list_quiz') }}">Quiz Your Study List Words</a></li>
+    <li class="menu-item"><a href="{{ url_for('random_quiz') }}">Quiz Random Words</a></li>
+    <li class="menu-item"><a href="{{ url_for('home') }}">About</a></li>
+  </ul>
     
-    <h1>  </h1>
-    <p>Hello! Welcome to No Sabo, where you can learn some new spanish words in no time! Use the random spanish word generator and add words to your study list where you can go back to study! Then quiz yourself on all the words you have saved!xD</p>
-    
-    {% endblock %}
+    <p class="custom-text">Discover new Spanish words and <br> learn something new everyday! </p>
+
   </body>
 </html>
+{% endblock %}
