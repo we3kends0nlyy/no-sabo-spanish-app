@@ -10,36 +10,63 @@ font-size: 40px;
 color: rgb(0, 0, 0);
 }
 
+#return-prev {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    }
+
+#return-prev a:link {
+    color: #000000;
+    text-decoration: none;
+}
+
+#return-prev a:visited {
+    color: rgba(0, 0, 0, 0.885);
+}
+
+.custom-text-sabo {
+    position: absolute;
+    top: 500px;
+    left: 170px;
+    font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    }
+
 .study-list-text {
     position: absolute;
     top: 100px;
     left: 625px;
     font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
     font-size: 40px;
-    color: rgb(0, 0, 0);
+    color: rgba(0, 0, 0, 0.885);
     }
 
 ul.menu {
+font-family: 'Balsamiq Sans', sans-serif, monospace;
 list-style-type: none;
 padding: 0;
 margin: 0;
-background-color: rgba(203, 183, 170, 0.698);
+background-color: #a5b3c8d3;
 overflow: hidden;
-max-width: 1100px; /* Make the menu take up the full width */
-position: fixed; /* Fix the menu at the top of the screen */
-top: 0; /* Position it at the top of the screen */
-right: 0; /* Align it with the right edge of the screen */
-text-align: right; /* Right-align the menu items */
+max-width: 1200px;
+position: fixed;
+top: 0;
+right: 0;
+text-align: right;
 }
 
 li.menu-item {
-display: inline-block; /* Display the menu items horizontally */
-margin-right: 10px; /* Add spacing between menu items */
+display: inline-block;
+margin-right: 10px;
 }
 
 li.menu-item a {
 display: block;
-color: rgb(0, 0, 0);
+color: rgb(80, 82, 92);
 text-align: center;
 padding: 14px 16px;
 text-decoration: none;
@@ -53,8 +80,8 @@ color: black;
 #show-delete-button, #confirm-delete-button, #cancel-button {
     font-family: 'Arial', sans-serif;
     font-size: 16px;
-    color: white;
-    background-color: #333;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
     border: none;
     padding: 10px 20px;
     margin-top: 10px;
@@ -62,38 +89,34 @@ color: black;
 }
 
 #word-list-container {
-    margin-top: 80px; /* Adjust the top margin to control vertical position */
-    padding: 20px; /* Adjust padding to control spacing */
-    text-align: center; /* Center the list horizontally */
+    margin-top: 65px;
+    padding: 20px;
+    text-align: center;
 }
 
-/* Style for the list items */
 #word-list li {
-    font-family: 'Your Preferred Font', sans-serif; /* Choose your desired font */
-    font-size: 18px; /* Choose your desired font size */
-    color: #333; /* Choose your desired text color */
-    list-style-type: none; /* Remove the default list bullet */
-    margin-bottom: 10px; /* Adjust spacing between list items */
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 18px;
+    color: #665eb6;
+    list-style-type: none;
+    margin-bottom: 10px;
 }
 
-/* Style for unvisited links */
 #word-list a:link {
-    color: #333; /* Set the link text color */
-    text-decoration: none; /* Remove underlines */
+    color: #000000;
+    text-decoration: none;
 }
 
-/* Style for visited links */
+
 #word-list a:visited {
-    color: #333; /* Set the link text color for visited links */
+    color: rgba(0, 0, 0, 0.885);
 }
 
-/* Additional CSS for positioning if needed */
-/* Example: To right-align the list container */
 #word-list-container {
     position: absolute;
-    top: 100px; /* Adjust top position */
-    left: 735px; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
+    top: 100px;
+    left: 735px;
+    transform: translateX(-50%);
 }
 
 .button-container {
@@ -103,7 +126,28 @@ color: black;
 
 #flash-container {
     position: absolute;
-    top: 190px; /* Adjust top position */
-    left: 750px; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
+    top: 190px;
+    left: 756px;
+    transform: translateX(-50%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 15px;
+}
+
+#sort-container {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: -50px;
+    left: 360px;
+    transform: translateX(-50%);
+}
+
+#asc-button, #desc-button, #ord-add-button {
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 10px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    margin-top: 15px;
+    cursor: pointer;
 }

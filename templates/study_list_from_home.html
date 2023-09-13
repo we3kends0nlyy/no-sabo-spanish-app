@@ -12,6 +12,11 @@
         <p>It's empty in here!!</p>
     {% else %}
         <div id="word-list-container">
+            <div id="sort-container">
+                <button type="button" id="asc-button" onclick="sortAlphabeticalAscending()">Sort A-Z</button>
+                <button type="button" id="desc-button"onclick="sortAlphabeticalDescending()">Sort Z-A</button>
+                <button type="button" id="ord-add-button"onclick="navigateToRoute('/study-list2')">Sort by Order Added</button>
+            </div>
             <form method="POST" action="/delete-words" id="delete-form">
                 <ul id="word-list">
                     {% for word in study_list %}
@@ -29,7 +34,9 @@
             </form>
         </div>
     {% endif %}
-    <a href="javascript:history.back()">Return To Previous Page</a>
+    <div id="return-prev">
+        <a href="javascript:history.back()">Return To Previous Page</a>
+    </div>
     <div id="flash-container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -65,6 +72,9 @@
             }
         }
 
+        function navigateToRoute(route) {
+        window.location.href = route;
+        }
         function confirmDelete() {
             document.getElementById("delete-form").submit();
         }
@@ -72,6 +82,50 @@
         function cancelDelete() {
             toggleDeleteOptions(); // Hide checkboxes and buttons
         }
+
+        function sortAlphabeticalAscending() {
+            const wordList = document.getElementById("word-list");
+            const items = Array.from(wordList.getElementsByTagName("li"));
+
+            items.sort((a, b) => {
+                const textA = a.textContent.trim();
+                const textB = b.textContent.trim();
+                return textA.localeCompare(textB); // Sort alphabetically ascending
+            });
+
+            // Clear the current list
+            while (wordList.firstChild) {
+                wordList.removeChild(wordList.firstChild);
+            }
+
+            // Append sorted items back to the list
+            items.forEach(item => {
+                wordList.appendChild(item);
+            });
+        }
+
+        function sortAlphabeticalDescending() {
+            const wordList = document.getElementById("word-list");
+            const items = Array.from(wordList.getElementsByTagName("li"));
+
+            items.sort((a, b) => {
+                const textA = a.textContent.trim();
+                const textB = b.textContent.trim();
+                return textB.localeCompare(textA); // Sort alphabetically descending
+            });
+
+            // Clear the current list
+            while (wordList.firstChild) {
+                wordList.removeChild(wordList.firstChild);
+            }
+
+            // Append sorted items back to the list
+            items.forEach(item => {
+                wordList.appendChild(item);
+            });
+        }
+
+
     </script>
 </body>
 </html>
