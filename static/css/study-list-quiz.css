@@ -1,0 +1,31 @@
+#study-list-quiz {
+    position: absolute;
+    top: 110px;
+    left: 580px;
+    transform: translateX(0%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 25px;
+    gap: 10px;
+}
+
+#submit-stu-quiz {
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 16px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 43px;
+    cursor: pointer;
+    margin-left: 125px;
+}
+
+#flash-cont-quiz {
+    color: rgb(222, 21, 21);
+    position: absolute;
+    top: 90px;
+    left: 745px;
+    transform: translateX(-50%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 25px;
+}

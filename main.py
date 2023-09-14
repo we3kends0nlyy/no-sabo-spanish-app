@@ -236,42 +236,48 @@ def spanish_page():
 
 @app.route("/generate-word", methods=["GET"])
 def generate_word():
-    try:
-        data = get_data()
-        random_word = data[0]
-        translate_word_final = data[1]
-        audio = data[2]
-        if random_word[0].islower():
-            list_of_sentences = find_sentences(random_word)
-            spanish_sentence = list_of_sentences[0]
-            english_sentence = list_of_sentences[1]
-            return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=spanish_sentence, english_sentence=english_sentence, audio = audio)
-        else:
-            result = generate_word()
-            return result
-    except Exception as e:
-        print(e)
-        result = generate_word()
-        return result
+    # try:
+    #     data = get_data()
+    #     random_word = data[0]
+    #     translate_word_final = data[1]
+    #     audio = data[2]
+    #     if random_word[0].islower():
+    #         list_of_sentences = find_sentences(random_word)
+    #         spanish_sentence = list_of_sentences[0]
+    #         english_sentence = list_of_sentences[1]
+            return render_template("random_spanish.html", random_word="klsjdf", translate_word="lskjef", spanish_sentence="lsk", english_sentence="lksjf", audio = "lskdf")
+    #     else:
+    #         result = generate_word()
+    #         return result
+    # except Exception as e:
+    #     print(e)
+    #     result = generate_word()
+    #     return result
 
 def generate_word2():
-    try:
-        data = get_data()
-        random_word = data[0]
-        translate_word_final = data[1]
-        audio = data[2]
-        if random_word.islower():
-            list_of_sentences = find_sentences(random_word)
-            spanish_sentence = list_of_sentences[0]
-            english_sentence = list_of_sentences[1]
-            return [random_word, translate_word_final, spanish_sentence, english_sentence, audio]
-        else:
-            result = generate_word2()
-            return result
-    except Exception as e:
-        print(e)
-        result = generate_word2()
-        return result
+    # try:
+        # data = get_data()
+        # random_word = data[0]
+        # translate_word_final = data[1]
+        # audio = data[2]
+        # if random_word.islower():
+        #     list_of_sentences = find_sentences(random_word)
+        #     spanish_sentence = list_of_sentences[0]
+        #     english_sentence = list_of_sentences[1]
+    random_word = "jsldkf"
+    translate_word_final = "skdf"
+    spanish_sentence = "sdfds"
+    english_sentence = "lijsdfl"
+    audio = None
+
+    return [random_word, translate_word_final, spanish_sentence, english_sentence, audio]
+    #     else:
+    #         result = generate_word2()
+    #         return result
+    # except Exception as e:
+    #     print(e)
+    #     result = generate_word2()
+    #     return result
     
 def get_data():
     api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"

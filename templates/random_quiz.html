@@ -7,36 +7,39 @@
     <title>Study List Quiz</title>
 </head>
 <body>
-    <h1>Random Word Quiz</h1>
-    
-    <p>Translate the Spanish word:</p>
-    <p>{{ spanish_correct_word }}</p>
+    <div id="study-list-random-quiz">
+        <h1>Random Word Quiz</h1>
+        <p>Translate the Spanish word:</p>
+        <p>{{ spanish_correct_word }}</p>
 
-    <form method="post" action="/submit-random-quiz">
-        <input type="hidden" name="spanish_correct_word" value="{{ spanish_correct_word }}">
-        <input type="hidden" name="english_correct_word" value="{{ english_correct_word }}">
-        <input type="hidden" name="english_word1" value="{{ english_word1 }}">
-        <input type="hidden" name="english_word2" value="{{ english_word2 }}">
-        <input type="hidden" name="english_word3" value="{{ english_word3 }}">
-        <input type="hidden" name="answer_options" value="{{ answer_options }}">
-        <input type="hidden" name="spanish_sentence" value="{{ spanish_sentence }}">
-        <input type="hidden" name="english_sentence" value="{{ english_sentence }}">
-        <input type="hidden" name="audio" value="{{ audio }}">
-        {% for option in answer_options %}
-            <input type="radio" name="answer" value="{{ option }}"> {{ option }}<br>
-        {% endfor %}
-        <button type="submit">Submit</button>
-    </form>
+        <form method="post" action="/submit-random-quiz">
+            <input type="hidden" name="spanish_correct_word" value="{{ spanish_correct_word }}">
+            <input type="hidden" name="english_correct_word" value="{{ english_correct_word }}">
+            <input type="hidden" name="english_word1" value="{{ english_word1 }}">
+            <input type="hidden" name="english_word2" value="{{ english_word2 }}">
+            <input type="hidden" name="english_word3" value="{{ english_word3 }}">
+            <input type="hidden" name="answer_options" value="{{ answer_options }}">
+            <input type="hidden" name="spanish_sentence" value="{{ spanish_sentence }}">
+            <input type="hidden" name="english_sentence" value="{{ english_sentence }}">
+            <input type="hidden" name="audio" value="{{ audio }}">
+            {% for option in answer_options %}
+                <input type="radio" name="answer" value="{{ option }}"> {{ option }}<br>
+            {% endfor %}
+            <button type="submit" id="submit-stu-random-quiz">Submit</button>
+        </form>
+    </div>
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="flash-messages">
-        {% for message in messages %}
-            <div class="flash-message">{{ message }}</div>
-        {% endfor %}
-        </div>
-    {% endif %}
-    {% endwith %}
+    <div id="flash-cont-random-quiz">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for message in messages %}
+                <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+    </div>
 
 
 </body>

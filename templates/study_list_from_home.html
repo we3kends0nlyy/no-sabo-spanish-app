@@ -7,32 +7,34 @@
 
 </head>
 <body>
-    <p class="study-list-text">Your Study List </p>
-    {% if not study_list %}
-        <p>It's empty in here!!</p>
-    {% else %}
-        <div id="word-list-container">
-            <div id="sort-container">
-                <button type="button" id="asc-button" onclick="sortAlphabeticalAscending()">Sort A-Z</button>
-                <button type="button" id="desc-button"onclick="sortAlphabeticalDescending()">Sort Z-A</button>
-                <button type="button" id="ord-add-button"onclick="navigateToRoute('/study-list2')">Sort by Order Added</button>
-            </div>
-            <form method="POST" action="/delete-words" id="delete-form">
-                <ul id="word-list">
-                    {% for word in study_list %}
-                        <li>
-                            <input type="checkbox" name="delete_word_ids" value="{{ word.id }}" style="display: none;">
-                            <a href="{{ url_for('word_detail', word_id=word.id) }}">{{ word.spanish_word }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <div class="button-container">
-                    <button type="button" id="show-delete-button" onclick="toggleDeleteOptions()">Delete</button>
-                    <button type="button" id="confirm-delete-button" style="display: none;" onclick="confirmDelete()">Confirm Delete</button>
-                    <button type="button" id="cancel-button" style="display: none;" onclick="cancelDelete()">Cancel</button>
+    <div class="study">
+        <p class="study-list-text">Your Study List </p>
+        {% if not study_list %}
+            <p class="empty-cont">It's empty in here!!</p>
+        {% else %}
+            <div id="word-list-container">
+                <div id="sort-container">
+                    <button type="button" id="asc-button" onclick="sortAlphabeticalAscending()">Sort A-Z</button>
+                    <button type="button" id="desc-button"onclick="sortAlphabeticalDescending()">Sort Z-A</button>
+                    <button type="button" id="ord-add-button"onclick="navigateToRoute('/study-list2')">Sort by Order Added</button>
                 </div>
-            </form>
-        </div>
+                <form method="POST" action="/delete-words" id="delete-form">
+                    <ul id="word-list">
+                        {% for word in study_list %}
+                            <li>
+                                <input type="checkbox" name="delete_word_ids" value="{{ word.id }}" style="display: none;">
+                                <a href="{{ url_for('word_detail', word_id=word.id) }}">{{ word.spanish_word }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="button-container">
+                        <button type="button" id="show-delete-button" onclick="toggleDeleteOptions()">Delete</button>
+                        <button type="button" id="confirm-delete-button" style="display: none;" onclick="confirmDelete()">Confirm Delete</button>
+                        <button type="button" id="cancel-button" style="display: none;" onclick="cancelDelete()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+    </div>
     {% endif %}
     <div id="return-prev">
         <a href="javascript:history.back()">Return To Previous Page</a>

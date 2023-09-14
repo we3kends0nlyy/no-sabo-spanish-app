@@ -4,20 +4,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Study List</title>
+
 </head>
 <body>
-    <h1>Study List</h1>
-    <ul>
-        {% if not study_list %}
-            <p>It's empty in here!!</p>
-        {% else %}
-            {% for word in study_list %}
-                <li>{{ word.spanish_word }}</li>
+    <p class="study-list-text">Your Study List </p>
+    {% if not study_list %}
+        <p class="empty-cont">It's empty in here!!</p>
+    {% else %}
+        <div id="word-list-container">
+            <div id="sort-container">
+                <button type="button" id="asc-button" onclick="sortAlphabeticalAscending()">Sort A-Z</button>
+                <button type="button" id="desc-button"onclick="sortAlphabeticalDescending()">Sort Z-A</button>
+                <button type="button" id="ord-add-button"onclick="navigateToRoute('/study-list2')">Sort by Order Added</button>
+            </div>
+        </div>
+    {% endif %}
+    <div id="return-prev">
+        <a href="javascript:history.back()">Return To Your Word</a>
+    </div>
+    <div id="flash-container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for message in messages %}
+                <div class="flash-message">{{ message }}</div>
             {% endfor %}
+            </div>
         {% endif %}
-    </ul>
-    <a href="javascript:history.back()">Back to Your Word</a>
+        {% endwith %}
+    </div>
+
+    <script>
+        function toggleDeleteOptions() {
+            const showDeleteButton = document.getElementById("show-delete-button");
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const confirmDeleteButton = document.getElementById("confirm-delete-button");
+            const cancelButton = document.getElementById("cancel-button");
+
+            if (showDeleteButton.style.display !== "none") {
+                showDeleteButton.style.display = "none";
+                checkboxes.forEach(checkbox => (checkbox.style.display = "inline"));
+                confirmDeleteButton.style.display = "inline";
+                cancelButton.style.display = "inline";
+            } else {
+                showDeleteButton.style.display = "inline";
+                checkboxes.forEach(checkbox => {
+                    checkbox.style.display = "none";
+                    checkbox.checked = false; // Uncheck the checkboxes
+                });
+                confirmDeleteButton.style.display = "none";
+                cancelButton.style.display = "none";
+            }
+        }
+
+        function navigateToRoute(route) {
+        window.location.href = route;
+        }
+        function confirmDelete() {
+            document.getElementById("delete-form").submit();
+        }
+
+        function cancelDelete() {
+            toggleDeleteOptions(); // Hide checkboxes and buttons
+        }
+
+        function sortAlphabeticalAscending() {
+            const wordList = document.getElementById("word-list");
+            const items = Array.from(wordList.getElementsByTagName("li"));
+
+            items.sort((a, b) => {
+                const textA = a.textContent.trim();
+                const textB = b.textContent.trim();
+                return textA.localeCompare(textB); // Sort alphabetically ascending
+            });
+
+            // Clear the current list
+            while (wordList.firstChild) {
+                wordList.removeChild(wordList.firstChild);
+            }
+
+            // Append sorted items back to the list
+            items.forEach(item => {
+                wordList.appendChild(item);
+            });
+        }
+
+        function sortAlphabeticalDescending() {
+            const wordList = document.getElementById("word-list");
+            const items = Array.from(wordList.getElementsByTagName("li"));
+
+            items.sort((a, b) => {
+                const textA = a.textContent.trim();
+                const textB = b.textContent.trim();
+                return textB.localeCompare(textA); // Sort alphabetically descending
+            });
+
+            // Clear the current list
+            while (wordList.firstChild) {
+                wordList.removeChild(wordList.firstChild);
+            }
+
+            // Append sorted items back to the list
+            items.forEach(item => {
+                wordList.appendChild(item);
+            });
+        }
+
+
+    </script>
 </body>
 </html>
 {% endblock %}
