@@ -9,10 +9,12 @@
     <div class="correct-answer">
         <div id="correct">
             <h1>That's Correct!!</h1>
-            <audio controls>
-                <source src="https://media.merriam-webster.com/audio/prons/es/me/mp3/{{audio[0]}}/{{audio}}.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+            {% if audio %}
+                <audio controls>
+                    <source src="https://media.merriam-webster.com/audio/prons/es/me/mp3/{{audio[0]}}/{{audio}}.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            {% endif %}
             <p><strong>Spanish Word:</strong> <span id="generated-word">{{ random_word }}</span></p>
             <p><strong>Translation:</strong> <span id="generated-word">{{ translate_word }}</span></p>
             <p><strong>Spanish Sentence Example:</strong> <span id="generated-word">{{ spanish_sentence }}</span></p>

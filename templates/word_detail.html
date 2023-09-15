@@ -10,15 +10,17 @@
     <div class="word-detail">
         <div id="word">
             <h1>Your Word</h1>
-            <audio controls>
-                <source src={{word.audio}} type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <p><strong>Spanish Word:</strong> <span id="generated-word">{{ word.spanish_word }}</span></p>
-            <p><strong>Translation:</strong> <span id="generated-word">{{ word.english_word }}</span></p>
-            <p><strong>Spanish Sentence Example:</strong> <span id="generated-word">{{ word.spanish_sentence }}</span></p>
-            <p><strong>English Sentence Example:</strong> <span id="generated-word">{{ word.english_sentence }}</span></p>
-            <p><strong>More Info:</strong> <a href="https://www.spanishdict.com/translation/{{word.spanish_word}}" target="_blank">SpanishDict.com</a></p>
+            {% if audio %}
+                <audio controls>
+                    <source src="{{ audio }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            {% endif %} 
+            <p><strong>Spanish Word:</strong> <span id="generated-word">{{ spanish_word }}</span></p>
+            <p><strong>Translation:</strong> <span id="generated-word">{{ english_word }}</span></p>
+            <p><strong>Spanish Sentence Example:</strong> <span id="generated-word">{{ spanish_sentence }}</span></p>
+            <p><strong>English Sentence Example:</strong> <span id="generated-word">{{ english_sentence }}</span></p>
+            <p><strong>More Info:</strong> <a href="https://www.spanishdict.com/translation/{{spanish_word}}" target="_blank">SpanishDict.com</a></p>
 
             <a href="javascript:history.back()" id="back-2-stu-list">Back to Study List</a>
         </div>

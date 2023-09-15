@@ -29,9 +29,15 @@ class StudyList(db.Model):
 @app.route('/word_detail/<int:word_id>')
 def word_detail(word_id):
     word = StudyList.query.get(word_id)
-
+    spanish_word = word.spanish_word
+    english_word = word.english_word
+    spanish_sentence = word.spanish_sentence
+    english_sentence = word.english_sentence
+    audio = word.audio
+    if "None" in audio:
+        audio = None
     if word is not None:
-        return render_template('word_detail.html', word=word)
+        return render_template('word_detail.html', spanish_word=spanish_word, english_word=english_word, spanish_sentence=spanish_sentence, english_sentence=english_sentence, audio=audio)
     else:
         flash('Word not found.', 'danger')
         return redirect(url_for('view_study_list'))
@@ -116,7 +122,6 @@ def view_study_list3():
 @app.route('/random-quiz')
 def random_quiz():
     part0 = generate_word2()
-    print(part0)
     spanish_correct_word = part0[0]
     english_correct_word = part0[1]
     spanish_sentence = part0[2]
@@ -131,6 +136,11 @@ def random_quiz():
     answer_options = [english_correct_word, english_word1, english_word2, english_word3]
     random.shuffle(answer_options)
     num = None
+    if audio is None:
+        pass
+    else:
+        if "None" in audio:
+            audio = None
     for i in range(len(answer_options)):
         if answer_options[i] == english_correct_word:
             num = i
@@ -149,6 +159,8 @@ def submit_random_quiz():
     spanish_sentence = request.form.get("spanish_sentence")
     english_sentence = request.form.get("english_sentence")
     audio = request.form.get("audio")
+    if "None" in audio:
+        audio = None
     if answer == english_correct:
         return render_template('correct_answer_random.html', random_word=spanish_correct, answer_options=answer_option, translate_word=english_correct, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
     else:
@@ -184,6 +196,8 @@ def study_list_quiz():
             if answer_options[i] == english_correct_word:
                 num = i
                 break
+        if "None" in audio:
+            audio = None
         return render_template('study_list_quiz.html', spanish_correct_word=spanish_correct_word, correct_option_index=num, answer_options=answer_options, english_correct_word=english_correct_word, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
 
 @app.route('/submit-quiz', methods=["POST"])
@@ -197,6 +211,8 @@ def submit_quiz():
     english_word3 = request.form.get("english_word3")
     spanish_sentence = request.form.get("spanish_sentence")
     english_sentence = request.form.get("english_sentence")
+    if "None" in audio:
+        audio = None
     answer_option = [english_correct, english_word1, english_word2, english_word3]
     if answer == english_correct:
         return render_template('correct_quiz_answer.html', random_word=spanish_correct, answer_options=answer_option, translate_word=english_correct, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
@@ -329,6 +345,7 @@ def find_sentences(random_word):
     x = all_text.split("2023:Principal TranslationsSpanishEnglish")[1].split("\n")
     if x[0] == '':
         del x[0]
+
     for i in range(len(x)):
         if "\xa0" in x[i] and "." in x[i]:
             spanish_sentence = x[i].split(".")[-2] + "."
