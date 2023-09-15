@@ -26,6 +26,10 @@ class StudyList(db.Model):
     audio = db.Column(db.String(200), nullable=False, unique=True)
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/word_detail/<int:word_id>')
 def word_detail(word_id):
     word = StudyList.query.get(word_id)
@@ -228,11 +232,6 @@ def correct_quiz_answer():
 @app.route("/")
 def home():
     return render_template("home.html")
-
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
 
 
 @app.route("/", methods=["GET"])
