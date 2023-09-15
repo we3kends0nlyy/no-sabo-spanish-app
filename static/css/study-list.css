@@ -8,7 +8,7 @@
     margin-top: 10px;
     cursor: pointer;
     margin-left: 40px;
-    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+    transition: background-color 0.3s ease;
 }
 
 #li.show-delete-button:hover, #confirm-delete-button:hover, #cancel-button:hover {
@@ -27,7 +27,7 @@
     margin-top: 10px;
     cursor: pointer;
     margin-left: 40px;
-    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+    transition: background-color 0.3s ease;
 }
 
 #li.show-delete-button:hover {

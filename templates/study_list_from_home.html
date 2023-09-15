@@ -67,7 +67,7 @@
                 showDeleteButton.style.display = "inline";
                 checkboxes.forEach(checkbox => {
                     checkbox.style.display = "none";
-                    checkbox.checked = false; // Uncheck the checkboxes
+                    checkbox.checked = false;
                 });
                 confirmDeleteButton.style.display = "none";
                 cancelButton.style.display = "none";
@@ -82,7 +82,7 @@
         }
 
         function cancelDelete() {
-            toggleDeleteOptions(); // Hide checkboxes and buttons
+            toggleDeleteOptions();
         }
 
         function sortAlphabeticalAscending() {
@@ -92,15 +92,13 @@
             items.sort((a, b) => {
                 const textA = a.textContent.trim();
                 const textB = b.textContent.trim();
-                return textA.localeCompare(textB); // Sort alphabetically ascending
+                return textA.localeCompare(textB);
             });
 
-            // Clear the current list
             while (wordList.firstChild) {
                 wordList.removeChild(wordList.firstChild);
             }
 
-            // Append sorted items back to the list
             items.forEach(item => {
                 wordList.appendChild(item);
             });
@@ -113,15 +111,13 @@
             items.sort((a, b) => {
                 const textA = a.textContent.trim();
                 const textB = b.textContent.trim();
-                return textB.localeCompare(textA); // Sort alphabetically descending
+                return textB.localeCompare(textA);
             });
 
-            // Clear the current list
             while (wordList.firstChild) {
                 wordList.removeChild(wordList.firstChild);
             }
 
-            // Append sorted items back to the list
             items.forEach(item => {
                 wordList.appendChild(item);
             });

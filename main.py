@@ -4,14 +4,11 @@ from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
 import project4
 import requests
-import re
 import random
 
 app = Flask(__name__)
-app.secret_key = "toptopsecret123"
 
 MERIAM_WEBSTER_API_KEY = 'e659155d-35c4-421f-8e2c-4f58a19f549c'
-WORDSAPI_API_KEY = "2c34481877msh7ba15f7575bb54cp159d0fjsn0f2b169556ee"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spanish_database.db'
 db = SQLAlchemy(app)

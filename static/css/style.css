@@ -31,9 +31,9 @@ color: rgb(0, 0, 0);
 
 
 #word-gen{
-    position: absolute; /* Set the position to absolute */
-    top: 770px; /* Adjust the top value to position vertically */
-    left: 1030px; /* Adjust the left value to position horizontally */
+    position: absolute;
+    top: 770px;
+    left: 1030px;
     font-family: 'Balsamiq Sans', sans-serif;
     font-size: 35px;
     color: rgb(80, 82, 92);
@@ -95,9 +95,9 @@ li.menu-item a:hover {
 
 
 #view-stuuu{
-    position: absolute; /* Set the position to absolute */
-    top: 1140px; /* Adjust the top value to position vertically */
-    left: 300px; /* Adjust the left value to position horizontally */
+    position: absolute;
+    top: 1140px;
+    left: 300px;
     font-family: 'Balsamiq Sans', sans-serif;
     font-size: 35px;
     color: rgb(80, 82, 92);
@@ -126,9 +126,9 @@ li.menu-item a:hover {
 
 
 #quiz{
-    position: absolute; /* Set the position to absolute */
-    top: 1440px; /* Adjust the top value to position vertically */
-    left: 930px; /* Adjust the left value to position horizontally */
+    position: absolute;
+    top: 1440px;
+    left: 930px;
     font-family: 'Balsamiq Sans', sans-serif;
     font-size: 35px;
     color: rgb(80, 82, 92);
