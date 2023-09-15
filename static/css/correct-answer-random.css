@@ -32,6 +32,12 @@
     margin-top: 10px;
     cursor: pointer;
     margin-left: 0px;
+    text-decoration: none;
+}
+
+#save-stu-list2:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
 }
 
 #next-ques {
@@ -44,4 +50,10 @@
     margin-top: 10px;
     cursor: pointer;
     margin-left: -350px;
+    text-decoration: none;
+}
+
+#next-ques:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
 }

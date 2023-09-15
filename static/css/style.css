@@ -3,7 +3,7 @@ background-color: #fefceb;
 }
 .custom-text {
 position: absolute;
-top: 250px;
+top: 150px;
 left: 700px;
 font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
 font-size: 40px;
@@ -13,12 +13,41 @@ color: rgb(0, 0, 0);
 
 .custom-text-sabo {
     position: absolute;
-    top: 500px;
+    top: 380px;
     left: 170px;
     font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
     font-size: 40px;
     color: rgb(0, 0, 0);
     }
+
+.custom-random-gen {
+    position: absolute;
+    top: 580px;
+    left: 650px;
+    font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    }
+
+
+#word-gen{
+    position: absolute; /* Set the position to absolute */
+    top: 770px; /* Adjust the top value to position vertically */
+    left: 1030px; /* Adjust the left value to position horizontally */
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 35px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#word-gen:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
 
 
 ul.menu {
@@ -33,6 +62,7 @@ position: fixed;
 top: 0;
 right: 0;
 text-align: right;
+z-index: 1000;
 }
 
 li.menu-item {
@@ -49,6 +79,107 @@ text-decoration: none;
 }
   
 li.menu-item a:hover {
-background-color: #ddd;
-color: black;
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
+
+.view-stu {
+    position: absolute;
+    top: 940px;
+    left: 130px;
+    font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    }
+
+
+#view-stuuu{
+    position: absolute; /* Set the position to absolute */
+    top: 1140px; /* Adjust the top value to position vertically */
+    left: 300px; /* Adjust the left value to position horizontally */
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 35px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#view-stuuu:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
+
+
+.stu-quiz {
+    position: absolute;
+    top: 1290px;
+    left: 700px;
+    font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    }
+
+
+#quiz{
+    position: absolute; /* Set the position to absolute */
+    top: 1440px; /* Adjust the top value to position vertically */
+    left: 930px; /* Adjust the left value to position horizontally */
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 35px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#quiz:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
+
+.rand-quiz {
+    position: absolute;
+    top: 1540px;
+    left: 180px;
+    font-family: 'Balsamiq Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    }
+
+
+#quiz-rand{
+    position: absolute;
+    top: 1715px;
+    left: 310px; 
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 35px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#quiz-rand:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
+#flash-container-home {
+    color: rgb(222, 21, 21);
+    position: absolute;
+    top: 90px;
+    left: 745px;
+    transform: translateX(-50%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 25px;
 }

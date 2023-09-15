@@ -10,6 +10,11 @@
     margin-left: 40px;
 }
 
+#show-delete-button:hover, #confirm-delete-button:hover, #cancel-button:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
 #word-list-container {
     margin-top: 65px;
     padding: 20px;
@@ -73,6 +78,11 @@
     cursor: pointer;
 }
 
+#asc-button:hover, #desc-button:hover, #ord-add-button:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
 .empty-cont {
     position: absolute;
     top: 200px;
@@ -99,14 +109,6 @@
     font-size: 20px;
     }
 
-#next-ques2 a:link {
-    color: #000000;
-    text-decoration: none;
-}
-
-#next-ques2 a:visited {
-    color: rgba(0, 0, 0, 0.885);
-}
 
 .button-container {
     text-align: center;
@@ -123,4 +125,10 @@
     margin-top: 10px;
     cursor: pointer;
     margin-left: 0px;
+    text-decoration: none;
+}
+
+#next-quest2:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
 }

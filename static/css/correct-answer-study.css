@@ -33,3 +33,8 @@
     cursor: pointer;
     margin-left: 10px;
 }
+
+#next-ques-stu:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}

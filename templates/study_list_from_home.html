@@ -23,14 +23,14 @@
                         {% for word in study_list %}
                             <li>
                                 <input type="checkbox" name="delete_word_ids" value="{{ word.id }}" style="display: none;">
-                                <a href="{{ url_for('word_detail', word_id=word.id) }}">{{ word.spanish_word }}</a>
+                                <a href="{{ url_for('word_detail', word_id=word.id) }}" id="spanish-words">{{ word.spanish_word }}</a>
                             </li>
                         {% endfor %}
                     </ul>
                     <div class="button-container">
-                        <button type="button" id="show-delete-button" onclick="toggleDeleteOptions()">Delete</button>
-                        <button type="button" id="confirm-delete-button" style="display: none;" onclick="confirmDelete()">Confirm Delete</button>
-                        <button type="button" id="cancel-button" style="display: none;" onclick="cancelDelete()">Cancel</button>
+                        <button type="button" id="show-delete-button" class="delete-button" onclick="toggleDeleteOptions()">Delete</button>
+                        <button type="button" id="confirm-delete-button" class="delete-button" style="display: none;" onclick="confirmDelete()">Confirm Delete</button>
+                        <button type="button" id="cancel-button" class="delete-button" style="display: none;" onclick="cancelDelete()">Cancel</button>
                     </div>
                 </form>
             </div>

@@ -18,7 +18,30 @@
     
     <p class="custom-text">Discover new Spanish words and <br> learn their meaning in seconds! </p>
     <p class="custom-text-sabo">The more you sabo, the more you know! </p>
+    
+    <p class="custom-random-gen">Generate spanish words with their translation and example sentences, then save them! </p>
+      <a href="/generate-word" id="word-gen">Generate Word</a>
 
+    <p class="view-stu">View everything you've saved here and <br>click any word in the study list to view it's info! </p>
+    <a href="/study-list2" id="view-stuuu">Go To Study List</a>
+
+    <p class="stu-quiz">Quiz yourself on the words you've sabo'd! </p>
+    <a href="/study-list-quiz" id="quiz">Study List Quiz</a>
+
+    <p class="rand-quiz">Quiz yourself on all new words and add <br> them to your study list as well! </p>
+    <a href="/random-quiz" id="quiz-rand">Random Word Quiz</a>
+
+    <div id="flash-container-home">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <div class="flash-messages">
+          {% for message in messages %}
+              <div class="flash-message">{{ message }}</div>
+          {% endfor %}
+          </div>
+      {% endif %}
+      {% endwith %}
+  </div>
   </body>
 </html>
 {% endblock %}

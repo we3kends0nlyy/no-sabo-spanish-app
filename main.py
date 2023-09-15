@@ -164,7 +164,6 @@ def submit_random_quiz():
     if answer == english_correct:
         return render_template('correct_answer_random.html', random_word=spanish_correct, answer_options=answer_option, translate_word=english_correct, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
     else:
-        flash("Wrong, please try again!", 'danger')
         return render_template('random_quiz.html', spanish_correct_word=spanish_correct, answer_options=answer_option, english_correct_word=english_correct, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
 
 @app.route('/correct-random-answer')
@@ -176,7 +175,8 @@ def correct_random_answer():
 def study_list_quiz():
     random_word = db.session.query(StudyList).order_by(func.random()).first()
     if random_word is None:
-        return render_template('spanish.html', message="You must add a word to the study list before starting the quiz!")
+        flash("Your must add a word to the study list first!", 'danger')
+        return render_template('home.html')
     else:
         spanish_correct_word = random_word.spanish_word
         english_correct_word = random_word.english_word

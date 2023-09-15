@@ -25,6 +25,11 @@
     margin-left: -150x;
 }
 
+#save-stu-list:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
 #random-word {
     position: absolute;
     top: 110px;

@@ -20,6 +20,11 @@
     margin-left: 125px;
 }
 
+#submit-stu-quiz:hover {
+    background-color: #9eb8e7;
+    color: #ffffff;
+}
+
 #flash-cont-quiz {
     color: rgb(222, 21, 21);
     position: absolute;
