@@ -1,0 +1,47 @@
+#correct {
+    position: absolute;
+    top: 110px;
+    left: 765px;
+    transform: translateX(-50%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 25px;
+    gap: 10px;
+}
+
+.correct-answer {
+    text-align: center;
+}
+
+#correct-answer{
+    position: absolute;
+    top: 110px;
+    left: 775px;
+    transform: translateX(-50%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 25px;
+    gap: 10px;
+}
+
+#save-stu-list2 {
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 16px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    margin-left: 0px;
+}
+
+#next-ques {
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 16px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    margin-left: -350px;
+}

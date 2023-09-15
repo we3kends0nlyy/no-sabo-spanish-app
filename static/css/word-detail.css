@@ -1,0 +1,35 @@
+#word {
+    position: absolute;
+    top: 110px;
+    left: 765px;
+    transform: translateX(-50%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 25px;
+    gap: 10px;
+}
+
+.word-detail {
+    text-align: center;
+}
+
+#word-detail{
+    position: absolute;
+    top: 110px;
+    left: 775px;
+    transform: translateX(-50%);
+    font-family: 'Balsamiq Sans', 'san-serif';
+    font-size: 25px;
+    gap: 10px;
+}
+
+#back-2-stu-list {
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 16px;
+    color: rgb(80, 82, 92);
+    background-color: #a5b3c8d3;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    margin-left: 0px;
+}

@@ -19,10 +19,10 @@
             <p><strong>Spanish Sentence Example:</strong> <span id="generated-word">{{ spanish_sentence }}</span></p>
             <p><strong>English Sentence Example:</strong> <span id="generated-word">{{ english_sentence }}</span></p>
             <p><strong>More Info:</strong> <a href="https://www.spanishdict.com/translation/{{random_word}}" target="_blank">SpanishDict.com</a></p>
+    <form method="POST" action="/save-to-study-list">
             <button type="submit" id="save-stu-list">Save to Study List</button>
         </div>
     </div>
-    <form method="POST" action="/save-to-study-list">
         <input type="hidden" name="spanish_word" value="{{ random_word }}">
         <input type="hidden" name="english_word" value="{{ translate_word }}">
         <input type="hidden" name="spanish_sentence" value="{{ spanish_sentence }}">

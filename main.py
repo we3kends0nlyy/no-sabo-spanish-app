@@ -236,48 +236,42 @@ def spanish_page():
 
 @app.route("/generate-word", methods=["GET"])
 def generate_word():
-    # try:
-    #     data = get_data()
-    #     random_word = data[0]
-    #     translate_word_final = data[1]
-    #     audio = data[2]
-    #     if random_word[0].islower():
-    #         list_of_sentences = find_sentences(random_word)
-    #         spanish_sentence = list_of_sentences[0]
-    #         english_sentence = list_of_sentences[1]
-            return render_template("random_spanish.html", random_word="klsjdf", translate_word="lskjef", spanish_sentence="lsk", english_sentence="lksjf", audio = "lskdf")
-    #     else:
-    #         result = generate_word()
-    #         return result
-    # except Exception as e:
-    #     print(e)
-    #     result = generate_word()
-    #     return result
+    try:
+        data = get_data()
+        random_word = data[0]
+        translate_word_final = data[1]
+        audio = data[2]
+        if random_word[0].islower():
+            list_of_sentences = find_sentences(random_word)
+            spanish_sentence = list_of_sentences[0]
+            english_sentence = list_of_sentences[1]
+            return render_template("random_spanish.html", random_word=random_word, translate_word=translate_word_final, spanish_sentence=spanish_sentence, english_sentence=english_sentence, audio = audio)
+        else:
+            result = generate_word()
+            return result
+    except Exception as e:
+        print(e)
+        result = generate_word()
+        return result
 
 def generate_word2():
-    # try:
-        # data = get_data()
-        # random_word = data[0]
-        # translate_word_final = data[1]
-        # audio = data[2]
-        # if random_word.islower():
-        #     list_of_sentences = find_sentences(random_word)
-        #     spanish_sentence = list_of_sentences[0]
-        #     english_sentence = list_of_sentences[1]
-    random_word = "jsldkf"
-    translate_word_final = "skdf"
-    spanish_sentence = "sdfds"
-    english_sentence = "lijsdfl"
-    audio = None
-
-    return [random_word, translate_word_final, spanish_sentence, english_sentence, audio]
-    #     else:
-    #         result = generate_word2()
-    #         return result
-    # except Exception as e:
-    #     print(e)
-    #     result = generate_word2()
-    #     return result
+    try:
+        data = get_data()
+        random_word = data[0]
+        translate_word_final = data[1]
+        audio = data[2]
+        if random_word.islower():
+            list_of_sentences = find_sentences(random_word)
+            spanish_sentence = list_of_sentences[0]
+            english_sentence = list_of_sentences[1]
+            return [random_word, translate_word_final, spanish_sentence, english_sentence, audio]
+        else:
+            result = generate_word2()
+            return result
+    except Exception as e:
+        print(e)
+        result = generate_word2()
+        return result
     
 def get_data():
     api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
@@ -328,26 +322,25 @@ def get_data():
         return "Failed to generate a word. Please try again later."
 
 def find_sentences(random_word):
-    url = f"https://www.spanishdict.com/examples/{random_word}?lang=es"
+    url = f"https://www.wordreference.com/es/en/translation.asp?spen={random_word}"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
     all_text = soup.get_text()
-    sentences2 = re.split(r'(?<=\d\w\)\w)|(?=\d\w\)\w)', all_text)
-    if len(sentences2) > 0:
-        first_letter = sentences2[-2][-1]
-        sent = sentences2[-1].split(".")
-        spanish_sentence = first_letter + sent[0] + "."
-        english_sentence = sent[1] + "."
-
+    x = all_text.split("2023:Principal TranslationsSpanishEnglish")[1].split("\n")
+    if x[0] == '':
+        del x[0]
+    for i in range(len(x)):
+        if "\xa0" in x[i] and "." in x[i]:
+            spanish_sentence = x[i].split(".")[-2] + "."
+            english_sentence = x[i+1].split(".")[-2] + "."
+            return [spanish_sentence, english_sentence]
+    if len(spanish_sentence) == 0 and len(english_sentence) == 0:
+        x = generate_word()
+        return x
     else:
-        sentences = re.split(r'(?<=\d\))|(?=\d\))', all_text)
-        for i in sentences:
-            if i[0].isupper():
-                sentence = i
-                break
-        spanish_sentence = sentence.split(".")[0] + "."
-        english_sentence = sentence.split(".")[1] + "."
-    return [spanish_sentence, english_sentence]
+        spanish_sentence = x[2]
+        english_sentence = x[3]
+        return [spanish_sentence, english_sentence]
 
 
 if __name__ == "__main__":
