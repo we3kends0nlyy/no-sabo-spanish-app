@@ -2,9 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from bs4 import BeautifulSoup
 from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
-import project4
 import requests
 import random
+from flask import Flask
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
@@ -12,6 +13,10 @@ MERIAM_WEBSTER_API_KEY = 'e659155d-35c4-421f-8e2c-4f58a19f549c'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spanish_database.db'
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+app.config['SECRET_KEY'] = 'asdhjkasjdh8i2y3+=+-'
+app.config['DEBUG'] = True
+
 
 
 class StudyList(db.Model):
