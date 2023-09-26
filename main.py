@@ -171,6 +171,7 @@ def submit_random_quiz():
         return render_template('correct_answer_random.html', random_word=spanish_correct, answer_options=answer_option, translate_word=english_correct, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
     else:
         flash("Wrong, please try again!", 'danger')
+        return render_template('random_quiz.html', spanish_correct_word=spanish_correct, answer_options=answer_option, english_correct_word=english_correct, english_word1=english_word1, english_word2=english_word2, english_word3=english_word3, audio=audio, spanish_sentence=spanish_sentence, english_sentence=english_sentence)
 
 @app.route('/correct-random-answer')
 def correct_random_answer():
