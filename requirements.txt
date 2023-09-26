@@ -13,7 +13,6 @@ Flask==2.3.3
 Flask-Migrate==4.0.4
 Flask-SQLAlchemy==3.0.5
 git-remote-codecommit==1.17
-heroku==0.1.4
 idna==3.4
 itsdangerous==2.1.2
 Jinja2==3.1.2
