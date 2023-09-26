@@ -1,1 +1,1 @@
-web: gunicorn no-sabo-spanish-app:app
+web: gunicorn main:app
