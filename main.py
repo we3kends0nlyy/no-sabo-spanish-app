@@ -6,6 +6,11 @@ import requests
 import random
 from flask import Flask
 from flask_migrate import Migrate
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
+
 
 app = Flask(__name__)
 
@@ -16,6 +21,8 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 app.config['SECRET_KEY'] = 'asdhjkasjdh8i2y3+=+-'
 app.config['DEBUG'] = True
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 
 
@@ -26,6 +33,54 @@ class StudyList(db.Model):
     spanish_sentence = db.Column(db.String(500), nullable=False, unique=True)
     english_sentence = db.Column(db.String(500), nullable=False, unique=True)
     audio = db.Column(db.String(200), nullable=False, unique=True)
+
+class User(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Log In')
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=25)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=50)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Register')
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html', title='Dashboard')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        # Process and store user registration data in your database
+        flash('Registration successful! You can now log in.', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Validate user credentials and log in the user
+        user = User(id=form.username.data)  # Replace with actual user retrieval logic
+        login_user(user)
+        return redirect(url_for('dashboard'))
+    return render_template('login.html', title='Log In', form=form)
 
 
 @app.route('/about')
