@@ -26,7 +26,7 @@ pytz==2023.3
 requests==2.31.0
 six==1.16.0
 soupsieve==2.5
--e git+https://github.com/we3kends0nlyy/tic-tac-toe-ai-game.git@e3075b9a1f404c0484cb30d3abbb5c3b9ad8af13#egg=tic_tac_toe&subdirectory=library
+-e git+https://github.com/we3kends0nlyy/no-sabo-spanish-app.git@nosaboo#egg=no-sabo&subdirectory=library
 SQLAlchemy==2.0.20
 sqlparse==0.4.4
 typing_extensions==4.7.1
