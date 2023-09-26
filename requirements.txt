@@ -28,7 +28,7 @@ six==1.16.0
 soupsieve==2.5
 SQLAlchemy==2.0.20
 sqlparse==0.4.4
--e git+https://github.com/we3kends0nlyy/no-sabo-spanish-app.git@e3075b9a1f404c0484cb30d3abbb5c3b9ad8af13#egg=tic_tac_toe&subdirectory=library
+-e git+https://github.com/we3kends0nlyy/no-sabo-spanish-app.git@e3075b9a1f404c0484cb30d3abbb5c3b9ad8af13#egg=no-sabo&subdirectory=library
 typing_extensions==4.7.1
 urllib3==1.26.16
 Werkzeug==2.3.7
