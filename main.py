@@ -19,6 +19,7 @@ app.config['DEBUG'] = True
 
 
 
+
 class StudyList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     spanish_word = db.Column(db.String(100), nullable=False, unique=True)
