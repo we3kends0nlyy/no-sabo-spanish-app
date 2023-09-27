@@ -292,6 +292,7 @@ def generate_word2():
         result = generate_word2()
         return result
     
+
 def get_data():
     api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
     response = requests.get(api_url_es)
