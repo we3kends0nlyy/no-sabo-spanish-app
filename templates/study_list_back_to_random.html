@@ -8,10 +8,11 @@
 </head>
 <body>
     <div class="study">
-        <p class="study-list-text">Here's your study list! Click on a word to pull up it's information! </p>
+        <p class="study-list-text">Your Study List </p>
         {% if not study_list %}
             <p class="empty-cont">It's empty in here!!</p>
         {% else %}
+        <p class="detail-cont">Click on any word to view it's information!</p>
             <div id="word-list-container">
                 <div id="sort-container">
                     <button type="button" id="asc-button" onclick="sortAlphabeticalAscending()">Sort A-Z</button>
