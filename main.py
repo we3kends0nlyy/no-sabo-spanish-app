@@ -233,12 +233,12 @@ def correct_quiz_answer():
     return render_template('correct_quiz_answer.html')
 
 
-@app.route("/")
+@app.route('/')
 def home():
     return render_template("home.html")
 
 
-@app.route("/", methods=["GET"])
+@app.route('/', methods=["GET"])
 def show_form():
     return render_template("combined_form.html")
 
@@ -255,6 +255,9 @@ def spanish_page():
 
 @app.route("/generate-word", methods=["GET"])
 def generate_word():
+    print("321")
+    print("loll")
+    print("123")
     try:
         data = get_data()
         random_word = data[0]
@@ -270,10 +273,12 @@ def generate_word():
             return result
     except Exception as e:
         print(e)
+        print("PHHHH")
         result = generate_word()
         return result
 
 def generate_word2():
+    print("mwuahhhh")
     try:
         data = get_data()
         random_word = data[0]
@@ -293,6 +298,7 @@ def generate_word2():
         return result
     
 def get_data():
+    print("hehehehe")
     api_url_es = "https://random-word-api.herokuapp.com/word?lang=es"
     response = requests.get(api_url_es)
     if response.status_code == 200:
@@ -340,12 +346,18 @@ def get_data():
     else:
         return "Failed to generate a word. Please try again later."
 
+
 def find_sentences(random_word):
+    print("omgomgomgomgomg")
     url = f"https://www.wordreference.com/es/en/translation.asp?spen={random_word}"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
     all_text = soup.get_text()
-    x = all_text.split("2023:Principal TranslationsSpanishEnglish")[1].split("\n")
+    print("here???.")
+    print(all_text.split("\n"))
+    # x = all_text.split("2023:Principal TranslationsSpanishEnglish")[1].split("\n")
+    x = all_text.split("2023:Principal TranslationsSpanishEnglish")[0].split("\n")
+    print("gets here.")
     if x[0] == '':
         del x[0]
 
